@@ -9,6 +9,8 @@ STRINGS = {
     "lang_label": "Język:",
     "theme_dark": "Ciemny",
     "theme_light": "Jasny",
+    "theme_relax": "Relaksacyjny",
+    "theme_creative": "Kreatywny",
     "theme_system": "Systemowy",
     "not_zip_error": "To nie jest plik .zip!",
     "no_images_error": "Brak obrazów w ZIP!",

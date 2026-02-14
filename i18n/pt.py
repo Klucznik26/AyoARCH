@@ -9,6 +9,7 @@ STRINGS = {
     "lang_label": "Idioma:",
     "theme_dark": "Escuro",
     "theme_light": "Claro",
+    "theme_creative": "Criativo",
     "theme_system": "Sistema",
     "not_zip_error": "Isto não é um arquivo .zip!",
     "no_images_error": "Sem imagens no ZIP!",

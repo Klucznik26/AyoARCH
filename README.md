@@ -1,21 +1,81 @@
-# Ayo Arch v1.0.0 📦🖼️
+# AyoARCH 1.0.1 – Intelligent ZIP Image Viewer 📦🖼️
 
-**Ayo Arch** is a lightweight and high-speed image viewer designed to browse images directly within ZIP archives without the need for extraction. It is a perfect tool for users who value disk space and efficiency.
+![License](https://img.shields.io/badge/license-MIT-blue.svg)
+![Python](https://img.shields.io/badge/python-3.10%2B-blue.svg)
+![Platform](https://img.shields.io/badge/platform-Linux%20%7C%20Windows-lightgrey.svg)
+
+**AyoARCH** is a fast and lightweight image viewer designed to browse images directly inside ZIP archives — without extracting files to disk.
+Built for creators, writers, and collectors who value speed, order, and disk efficiency.
+
+---
+
+## 📸 Program Preview
+
+|                            Dark Theme                           |                                Creative Theme                               |                             Relax Theme                            |                              Settings                             |
+| :-------------------------------------------------------------: | :-------------------------------------------------------------------------: | :----------------------------------------------------------------: | :---------------------------------------------------------------: |
+| [![Dark](screenshots/main_dark.png)](screenshots/main_dark.png) | [![Creative](screenshots/main_creative.png)](screenshots/main_creative.png) | [![Relax](screenshots/main_relax.png)](screenshots/main_relax.png) | [![Settings](screenshots/settings.png)](screenshots/settings.png) |
+
+---
+
+## 🆕 What’s New in 1.0.1
+
+* 🎨 **New Creative Theme** added to the Ayo visual style family
+* ⚙️ **Code optimizations and internal improvements** for better performance and stability
+* 🧠 Improved responsiveness when browsing large archives
+
+---
 
 ## 🚀 Key Features
-* **Zero-Temp Strategy**: Images are loaded directly into RAM. The program does not create any temporary files on your drive, keeping your system clean.
-* **Instant ZIP Access**: Fast access to image files inside standard archives.
-* **Ayo Interface**: Consistent styling with the Ayo ecosystem (Ayo-UP, Ayo Convert) – featuring a sleek Dark Mode.
-* **Modal Settings**: Professional settings window management, ensuring a seamless user experience.
+
+### ⚡ Zero-Temp Strategy
+
+Images are loaded directly into RAM.
+The application **never creates temporary files**, keeping your system clean and your SSD safe.
+
+### 📦 Instant ZIP Access
+
+Browse images directly inside standard ZIP archives with no extraction and no waiting.
+
+### 🎨 Ayo Interface
+
+Consistent UI design shared across the Ayo ecosystem:
+
+* Dark Theme
+* Relax Theme
+* **Creative Theme (new in 1.0.1)**
+
+### 🪟 Professional Settings Workflow
+
+Modal settings window ensures a clean and distraction-free workflow.
+
+### 💨 Lightweight & Fast
+
+Minimal dependencies and optimized loading for instant image browsing.
+
+---
 
 ## 🖼️ Supported Image Formats
-Ayo Arch supports a wide range of formats, allowing you to preview almost any type of graphic hidden within an archive:
-* **Standard Formats**: `.png`, `.jpg`, `.jpeg`, `.bmp`, `.gif`
-* **Professional & Specialized**: `.tiff`, `.tif`, `.webp`
-* **System Icons**: `.ico`
+
+**Standard**
+
+* PNG
+* JPG / JPEG
+* BMP
+* GIF
+
+**Professional & Modern**
+
+* TIFF / TIF
+* WEBP
+
+**System Icons**
+
+* ICO
+
+---
 
 ## 🌍 Supported Languages
-Ayo Arch is built with international users in mind and supports:
+
 * 🇵🇱 Polish
 * 🇺🇸 English
 * 🇵🇹 Portuguese
@@ -25,16 +85,51 @@ Ayo Arch is built with international users in mind and supports:
 * 🇱🇹 Lithuanian
 * 🇪🇪 Estonian
 
-## 🎨 Visual Identity (Ayo Style)
-* **Background**: `#2e2e2e`
-* **Accent Gold**: `#e1ad01`
-* **Primary Text**: `#ffffff`
+---
 
-## 🛠️ Tech Stack
-Developed on **OpenSUSE** using:
-* **Python 3**
-* **PySide6** (Qt for Python)
-* **Zipfile** (standard library)
+## 🎨 Visual Identity (Ayo Style)
+
+| Element      | Color     |
+| ------------ | --------- |
+| Background   | `#2e2e2e` |
+| Accent Gold  | `#e1ad01` |
+| Primary Text | `#ffffff` |
+
+---
+
+## 🛠️ Technology
+
+Developed on Linux using a modern Python + Qt stack:
+
+* **Language:** Python 3
+* **GUI:** PySide6 (Qt for Python)
+* **Archive Engine:** zipfile (Python standard library)
+* **Development Environment:** OpenSUSE + KDE Plasma
+
+---
+
+## 🌌 Ayo Ecosystem
+
+* **Ayo-UP** – file uploading and update management
+* **AyoCONVERT** – high-quality file conversion
+* **AyoSORT** – intelligent image categorization
+
+More projects:
+👉 https://klucznik26.github.io/AyoWWW/
+
+---
 
 ## 📖 About the Project
-Ayo Arch is part of a tetralogy of tools supporting Marek's literary work. The project was born from the need to quickly browse visual materials related to the main character, **Ayo** (a Kenyan native), and documentation regarding the conspiracy of the **H.F.R.** (Human Factor Reduction) organization.
+
+AyoARCH was created as part of a creative toolkit supporting visual research and world-building.
+The application was designed to quickly browse large collections of reference images stored in archives — without cluttering disk space.
+
+---
+
+## 📥 Installation
+
+```bash
+git clone https://github.com/Klucznik26/AyoARCH.git
+cd AyoARCH
+python main.py
+```

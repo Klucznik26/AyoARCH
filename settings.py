@@ -25,7 +25,7 @@ class SettingsWindow(QDialog):
         self.lbl_theme = QLabel("Motyw kolorystyczny:")
         self.combo_theme = QComboBox()
         # Kolejność: Systemowy, Ciemny, Jasny
-        self.combo_theme.addItems(["Systemowy", "Ciemny", "Jasny"])
+        self.combo_theme.addItems(["Systemowy", "Ciemny", "Jasny", "Relaksacyjny", "Kreatywny"])
         self.combo_theme.currentIndexChanged.connect(self.on_theme_change)
         
         self.layout.addWidget(self.lbl_theme)
@@ -58,7 +58,7 @@ class SettingsWindow(QDialog):
 
     def on_theme_change(self, index):
         # Mapowanie indeksów na kody motywów
-        codes = ["system", "dark", "light"]
+        codes = ["system", "dark", "light", "relax", "creative"]
         if 0 <= index < len(codes):
             self.theme_changed.emit(codes[index])
 
@@ -72,3 +72,5 @@ class SettingsWindow(QDialog):
         self.combo_theme.setItemText(0, strings.get("theme_system", "Systemowy"))
         self.combo_theme.setItemText(1, strings.get("theme_dark", "Ciemny"))
         self.combo_theme.setItemText(2, strings.get("theme_light", "Jasny"))
+        self.combo_theme.setItemText(3, strings.get("theme_relax", "Relaksacyjny"))
+        self.combo_theme.setItemText(4, strings.get("theme_creative", "Kreatywny"))

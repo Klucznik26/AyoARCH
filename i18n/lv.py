@@ -9,6 +9,7 @@ STRINGS = {
     "lang_label": "Valoda:",
     "theme_dark": "Tumša",
     "theme_light": "Gaiša",
+    "theme_creative": "Radošs",
     "theme_system": "Sistēmas",
     "not_zip_error": "Tas nav .zip fails!",
     "no_images_error": "ZIP arhīvā nav attēlu!",

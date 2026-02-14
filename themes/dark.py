@@ -1,144 +1,169 @@
-STYLE = """
-    /* 1. GLOBALNE TŁO APLIKACJI */
-    QMainWindow, QWidget#SettingsWindow {
-        background-color: #3B332B;
-    }
+DARK_THEME = """
+/* =========================
+   OKNO GŁÓWNE
+   ========================= */
+QMainWindow {
+    background-color: #2F2A25;  /* ciepły, miedziany ciemny */
+}
 
-    /* 2. GŁÓWNE POWIERZCHNIE / PANELS */
-    QWidget#Sidebar {
-        background-color: #3B332B;
-        border: 1px solid #2E3947;
-        border-radius: 8px;
-    }
+/* =========================
+   RAMKI / PANELE
+   ========================= */
+QFrame {
+    background-color: #3A342E;
+    border: 1px solid #4A423B;
+}
 
-    /* 3. TYPOGRAFIA */
-    QLabel {
-        color: #E6EDF3;
-        font-size: 14px;
-    }
+/* =========================
+   TEKST
+   ========================= */
+QLabel {
+    color: #E6DED2;   /* jaśniejszy — czytelny */
+}
 
-    /* 5. PRZYCISKI - SECONDARY BUTTON (Domyślny) */
-    QPushButton {
-        background-color: #4E4439;
-        color: #E6EDF3;
-        border: 1px solid #666666;
-        padding: 8px;
-        border-radius: 8px;
-        min-height: 30px;
-        font-weight: bold;
-    }
-    QPushButton:hover {
-        background-color: #5C5144;
-    }
-    QPushButton:pressed {
-        background-color: #3B332B;
-    }
+QLabel[secondary="true"] {
+    color: #B8AFA3;   /* pomocniczy */
+}
 
-    /* 5. PRZYCISKI - PRIMARY BUTTON */
-    QPushButton#PrimaryButton {
-        background-color: #04E38A;
-        color: #00261A;
-        border: none;
-    }
-    QPushButton#PrimaryButton:hover {
-        background-color: #02C978;
-    }
-    QPushButton#PrimaryButton:pressed {
-        background-color: #00B86C;
-    }
-    QPushButton#PrimaryButton:disabled {
-        background-color: #0C3B2C;
-        color: #E6EDF3AA;
-    }
+/* =========================
+   PRZYCISKI – STANDARD
+   ========================= */
+QPushButton {
+    padding: 8px 14px;
+    background-color: #3E3832;
+    border: 1px solid #5A5248;
+    border-radius: 8px;
+    color: #E8E2D8;
+}
 
-    /* 5. PRZYCISKI - DANGER BUTTON */
-    QPushButton#DangerButton {
-        background-color: #FF5A5F;
-        color: #FFFFFF;
-        border: none;
-    }
-    QPushButton#DangerButton:hover {
-        background-color: #E0484D;
-    }
+QPushButton:hover {
+    background-color: #4A433C;
+}
 
-    /* 6. POLA TEKSTOWE / INPUTY */
-    QComboBox {
-        background-color: #4E4439;
-        color: #E6EDF3;
-        border: 1px solid #666666;
-        padding: 5px;
-        border-radius: 8px;
-    }
-    QComboBox:hover {
-        border: 1px solid #7F8A96;
-    }
-    QComboBox:focus {
-        border: 1px solid #04E38A;
-    }
-    QComboBox::drop-down {
-        border: 0px;
-    }
-    QComboBox QAbstractItemView {
-        background-color: #4E4439;
-        color: #E6EDF3;
-        selection-background-color: #044D33;
-        selection-color: #E6EDF3;
-        border: 1px solid #666666;
-    }
+QPushButton:pressed {
+    background-color: #352F2A;
+}
 
-    /* 10. SCROLLBARY */
-    QScrollBar:vertical {
-        background: #151B22;
-        width: 12px;
-        margin: 0px;
-    }
-    QScrollBar::handle:vertical {
-        background: #2E3947;
-        min-height: 20px;
-        border-radius: 6px;
-    }
-    QScrollBar::handle:vertical:hover {
-        background: #3A4656;
-    }
-    QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical {
-        height: 0px;
-    }
-    QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
-        background: none;
-    }
+QPushButton:disabled {
+    background-color: #2E2925;
+    color: #8F8578;
+    border-color: #3A342E;
+}
 
-    /* 8. PROGRESS BAR */
-    QProgressBar {
-        border: none;
-        background-color: #2A3440;
-        border-radius: 4px;
-        text-align: center;
-        color: #E6EDF3;
-    }
-    QProgressBar::chunk {
-        background-color: #04E38A;
-        border-radius: 4px;
-    }
+/* =========================
+   PRZYCISK WYKONAJ (AKCENT)
+   ========================= */
+QPushButton#runButton {
+    background-color: #9C5532;   /* cegła */
+    border: none;
+    color: #FFFFFF;
+}
 
-    /* 11. DRZEWO PLIKÓW */
-    QTreeWidget {
-        background-color: #4E4439;
-        color: #E6EDF3;
-        border: 1px solid #666666;
-        border-radius: 8px;
-    }
-    QTreeWidget::item:selected {
-        background-color: #044D33;
-        color: #E6EDF3;
-    }
+QPushButton#runButton:hover {
+    background-color: #B35E34;
+}
+
+QPushButton#runButton:pressed {
+    background-color: #864A2C;
+}
+
+/* =========================
+   SUWAK SKALI
+   ========================= */
+QSlider::groove:horizontal {
+    height: 6px;
+    background: #4A433C;
+    border-radius: 3px;
+}
+
+QSlider::handle:horizontal {
+    background: #C96A3A;
+    width: 16px;
+    margin: -5px 0;
+    border-radius: 8px;
+}
+
+QSlider::sub-page:horizontal {
+    background: #7A4A32;
+    border-radius: 3px;
+}
+
+QSlider::add-page:horizontal {
+    background: #3E3832;
+    border-radius: 3px;
+}
+
+/* =========================
+   DIALOGI (Wybór plików, Ustawienia)
+   ========================= */
+QDialog {
+    background-color: #2F2A25;
+    color: #E6DED2;
+}
+
+QTreeView, QListView {
+    background-color: #3A342E;
+    color: #E6DED2;
+    border: 1px solid #4A423B;
+    outline: none;
+}
+
+QTreeView::item:selected, QListView::item:selected {
+    background-color: #9C5532;
+    color: #FFFFFF;
+}
+
+QHeaderView::section {
+    background-color: #3E3832;
+    color: #E6DED2;
+    border: none;
+    padding: 4px;
+}
+
+QLineEdit {
+    background-color: #3A342E;
+    color: #E6DED2;
+    border: 1px solid #5A5248;
+    border-radius: 4px;
+}
+
+QComboBox {
+    background-color: #3E3832;
+    color: #E6DED2;
+    border: 1px solid #5A5248;
+    padding: 4px;
+}
+
+QComboBox::drop-down {
+    border: none;
+}
+
+/* =========================
+   NARZĘDZIA (np. nawigacja w QFileDialog)
+   ========================= */
+QToolButton {
+    background-color: transparent;
+    border: none;
+    border-radius: 4px;
+    color: #E6DED2;
+    padding: 4px;
+}
+
+QToolButton:hover {
+    background-color: #4A433C;
+}
+
+QToolButton:pressed {
+    background-color: #352F2A;
+}
 """
 
 DROP_ZONE = """
     QLabel {
-        border: 2px dashed #666666;
+        border: 2px dashed #5A5248;
         border-radius: 8px;
-        color: #E6EDF3;
-       font-size: 16px;
-        background-color: #4E4439;
+        color: #E6DED2;
+        font-size: 16px;
+        background-color: #3A342E;
     }
 """

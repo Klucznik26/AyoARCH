@@ -6,8 +6,10 @@ from PySide6.QtWidgets import (QMainWindow, QLabel, QVBoxLayout, QHBoxLayout,
                              QSizePolicy, QTreeWidget, QTreeWidgetItem)
 from PySide6.QtGui import QPixmap, QImage, QDragEnterEvent, QDropEvent
 from PySide6.QtCore import Qt
-from styles import (MAIN_STYLE, LIGHT_STYLE, DROP_ZONE_STYLE, 
-                   DROP_ZONE_STYLE_LIGHT, LOGO_STYLE_MISSING)
+from styles import (MAIN_STYLE, LIGHT_STYLE, RELAX_THEME, SYSTEM_THEME,
+                   DROP_ZONE_STYLE, DROP_ZONE_STYLE_LIGHT, DROP_ZONE_STYLE_RELAX, 
+                   DROP_ZONE_STYLE_SYSTEM, CREATIVE_THEME, DROP_ZONE_STYLE_CREATIVE,
+                   LOGO_STYLE_MISSING)
 from settings import SettingsWindow
 
 class AyoArch(QMainWindow):
@@ -75,6 +77,7 @@ class AyoArch(QMainWindow):
         # Przyciski górne
         self.btn_open = QPushButton("Otwórz archiwum")
         self.btn_open.clicked.connect(self.load_zip_dialog)
+        self.btn_open.setObjectName("runButton")
         
         sidebar_layout.addWidget(self.btn_open)
 
@@ -196,10 +199,10 @@ class AyoArch(QMainWindow):
 
     def apply_theme(self, theme_code):
         if theme_code == "system":
-            self.setStyleSheet("") # Pusty styl = styl systemowy
-            self.image_label.setStyleSheet(DROP_ZONE_STYLE_LIGHT) # Używamy jasnego stylu dla strefy zrzutu w trybie systemowym (bezpieczniej)
+            self.setStyleSheet(SYSTEM_THEME)
+            self.image_label.setStyleSheet(DROP_ZONE_STYLE_SYSTEM)
             if self.settings_window:
-                self.settings_window.setStyleSheet("")
+                self.settings_window.setStyleSheet(SYSTEM_THEME)
         elif theme_code == "dark":
             self.setStyleSheet(MAIN_STYLE)
             self.image_label.setStyleSheet(DROP_ZONE_STYLE)
@@ -210,6 +213,16 @@ class AyoArch(QMainWindow):
             self.image_label.setStyleSheet(DROP_ZONE_STYLE_LIGHT)
             if self.settings_window:
                 self.settings_window.setStyleSheet(LIGHT_STYLE)
+        elif theme_code == "relax":
+            self.setStyleSheet(RELAX_THEME)
+            self.image_label.setStyleSheet(DROP_ZONE_STYLE_RELAX)
+            if self.settings_window:
+                self.settings_window.setStyleSheet(RELAX_THEME)
+        elif theme_code == "creative":
+            self.setStyleSheet(CREATIVE_THEME)
+            self.image_label.setStyleSheet(DROP_ZONE_STYLE_CREATIVE)
+            if self.settings_window:
+                self.settings_window.setStyleSheet(CREATIVE_THEME)
 
     # --- Logika aplikacji ---
     def load_zip_dialog(self):
