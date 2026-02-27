@@ -34,8 +34,10 @@ class SettingsWindow(QDialog):
         # Sekcja Języka
         self.lbl_lang = QLabel("Język:")
         self.combo_lang = QComboBox()
-        langs = ["Polski", "English", "Português", "Čeština", 
-                 "Українська", "Latviešu", "Lietuvių", "Eesti"]
+        langs = ["🇵🇱 Polski", "🇺🇸 English", "🇵🇹 Português", "🇨🇿 Čeština", 
+                 "🇺🇦 Українська", "🇱🇻 Latviešu", "🇱🇹 Lietuvių", "🇪🇪 Eesti",
+                 "🇪🇸 Español", "🇫🇷 Français", "🇮🇹 Italiano", "🇷🇴 Română", 
+                 "🇸🇰 Slovenčina", "🇬🇷 Ελληνικά", "🇬🇪 ქართული"]
         self.combo_lang.addItems(langs)
         self.combo_lang.currentIndexChanged.connect(self.on_language_change)
         
@@ -52,7 +54,8 @@ class SettingsWindow(QDialog):
 
     def on_language_change(self, index):
         # Mapowanie indeksów na kody plików (pl.py, en.py, lt.py itd.)
-        codes = ["pl", "en", "pt", "cs", "uk", "lv", "lt", "et"]
+        codes = ["pl", "en", "pt", "cs", "uk", "lv", "lt", "et",
+                 "es", "fr", "it", "ro", "sk", "el", "ka"]
         if 0 <= index < len(codes):
             self.language_changed.emit(codes[index])
 

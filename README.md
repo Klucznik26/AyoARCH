@@ -1,4 +1,4 @@
-# AyoARCH 1.0.1 – Intelligent ZIP Image Viewer 📦🖼️
+# AyoARCH 1.2.0 – Intelligent ZIP Image Viewer 📦🖼️
 
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
 ![Python](https://img.shields.io/badge/python-3.10%2B-blue.svg)
@@ -17,11 +17,15 @@ Built for creators, writers, and collectors who value speed, order, and disk eff
 
 ---
 
-## 🆕 What’s New in 1.0.1
+## 🆕 What’s New in 1.2.0
 
 * 🎨 **New Creative Theme** added to the Ayo visual style family
 * ⚙️ **Code optimizations and internal improvements** for better performance and stability
 * 🧠 Improved responsiveness when browsing large archives
+* 📦 **Added support for .7z and .cbz archives**
+* 🔧 **Smart Dependency Manager** – automatically installs missing libraries (like py7zr) when needed
+* 🌍 **Expanded Language Support** – now supporting 15 languages with native flag icons
+* 🖥️ **Native Dialog Integration** – file dialogs now respect system language and application theme
 
 ---
 
@@ -34,7 +38,7 @@ The application **never creates temporary files**, keeping your system clean and
 
 ### 📦 Instant ZIP Access
 
-Browse images directly inside standard ZIP archives with no extraction and no waiting.
+Browse images directly inside ZIP, 7z and CBZ archives with no extraction and no waiting.
 
 ### 🎨 Ayo Interface
 
@@ -51,6 +55,10 @@ Modal settings window ensures a clean and distraction-free workflow.
 ### 💨 Lightweight & Fast
 
 Minimal dependencies and optimized loading for instant image browsing.
+
+### 🧠 Smart Dependency Handling
+
+The application automatically detects missing libraries for specific formats (e.g., .7z) and offers to install them on demand, ensuring a smooth experience without manual configuration.
 
 ---
 
@@ -84,6 +92,13 @@ Minimal dependencies and optimized loading for instant image browsing.
 * 🇱🇻 Latvian
 * 🇱🇹 Lithuanian
 * 🇪🇪 Estonian
+* 🇪🇸 Spanish
+* 🇫🇷 French
+* 🇮🇹 Italian
+* 🇷🇴 Romanian
+* 🇸🇰 Slovak
+* 🇬🇷 Greek
+* 🇬🇪 Georgian
 
 ---
 
@@ -131,5 +146,6 @@ The application was designed to quickly browse large collections of reference im
 ```bash
 git clone https://github.com/Klucznik26/AyoARCH.git
 cd AyoARCH
+pip install -r requirements.txt
 python main.py
 ```

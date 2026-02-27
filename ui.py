@@ -1,11 +1,18 @@
 import os
+import sys
+import subprocess
 import zipfile
 import importlib
+try:
+    import py7zr
+except ImportError:
+    py7zr = None
 from PySide6.QtWidgets import (QMainWindow, QLabel, QVBoxLayout, QHBoxLayout, 
                              QWidget, QPushButton, QFileDialog, QSpacerItem, 
-                             QSizePolicy, QTreeWidget, QTreeWidgetItem)
-from PySide6.QtGui import QPixmap, QImage, QDragEnterEvent, QDropEvent
-from PySide6.QtCore import Qt
+                             QSizePolicy, QTreeWidget, QTreeWidgetItem, QMessageBox,
+                             QApplication)
+from PySide6.QtGui import QPixmap, QImage, QDragEnterEvent, QDropEvent, QCursor
+from PySide6.QtCore import Qt, QTranslator, QLocale, QLibraryInfo
 from styles import (MAIN_STYLE, LIGHT_STYLE, RELAX_THEME, SYSTEM_THEME,
                    DROP_ZONE_STYLE, DROP_ZONE_STYLE_LIGHT, DROP_ZONE_STYLE_RELAX, 
                    DROP_ZONE_STYLE_SYSTEM, CREATIVE_THEME, DROP_ZONE_STYLE_CREATIVE,
@@ -16,7 +23,7 @@ class AyoArch(QMainWindow):
     def __init__(self):
         super().__init__()
         # Konfiguracja okna
-        self.setWindowTitle("Ayo Arch v 1.0.0 - Archive Viewer")
+        self.setWindowTitle("Ayo Arch v 1.2.0 - Archive Viewer")
         self.setMinimumSize(1000, 700)
         
         # Włączenie obsługi przeciągania plików
@@ -28,6 +35,11 @@ class AyoArch(QMainWindow):
 
         # Okno ustawień
         self.settings_window = None
+
+        # Inicjalizacja tłumacza Qt (dla okien systemowych)
+        self.qt_translator = QTranslator()
+        if QApplication.instance():
+            QApplication.instance().installTranslator(self.qt_translator)
 
         # Domyślny język
         self.load_language("pl")
@@ -69,6 +81,12 @@ class AyoArch(QMainWindow):
             if self.settings_window:
                 self.settings_window.update_texts(self.strings)
 
+        # Ładowanie tłumaczeń Qt (qtbase)
+        if hasattr(self, 'qt_translator'):
+            path = QLibraryInfo.path(QLibraryInfo.TranslationsPath)
+            if not self.qt_translator.load(QLocale(lang_code), "qtbase", "_", path):
+                print(f"Info: Nie znaleziono tłumaczeń Qt dla '{lang_code}' w {path}")
+
     def setup_sidebar(self, layout):
         # --- LEWY PANEL (SIDEBAR) ---
         sidebar_layout = QVBoxLayout()
@@ -88,7 +106,7 @@ class AyoArch(QMainWindow):
 
         # Drzewo plików (domyślnie ukryte)
         self.file_tree = QTreeWidget()
-        self.file_tree.setHeaderHidden(True)
+        self.file_tree.setHeaderHidden(False)
         self.file_tree.setVisible(False)
         self.file_tree.itemClicked.connect(self.on_tree_item_clicked)
         sidebar_layout.addWidget(self.file_tree)
@@ -167,7 +185,7 @@ class AyoArch(QMainWindow):
         if files:
             # Bierzemy pierwszy plik z rzutu
             file_path = files[0]
-            if file_path.lower().endswith('.zip'):
+            if file_path.lower().endswith(('.zip', '.cbz', '.7z')):
                 self.display_first_image(file_path)
             else:
                 self.image_label.setText("To nie jest plik .zip!")
@@ -186,6 +204,7 @@ class AyoArch(QMainWindow):
         self.btn_close.setText(s.get("close", "Zamknij"))
         if not self.current_pixmap:
             self.image_label.setText(s.get("drop_zone_text", "..."))
+        self.file_tree.setHeaderLabels([s.get("file_name", "File Name")])
 
     def open_settings(self):
         if self.settings_window is None:
@@ -226,9 +245,16 @@ class AyoArch(QMainWindow):
 
     # --- Logika aplikacji ---
     def load_zip_dialog(self):
-        file_path, _ = QFileDialog.getOpenFileName(self, "Wybierz archiwum", "", "Archives (*.zip)")
-        if file_path:
-            self.display_first_image(file_path)
+        dialog = QFileDialog(self, self.strings.get("open_archive", "Wybierz archiwum"), "")
+        dialog.setNameFilter("Archives (*.zip *.cbz *.7z)")
+        dialog.setFileMode(QFileDialog.ExistingFile)
+        dialog.setOption(QFileDialog.DontUseNativeDialog, True)
+        dialog.setStyleSheet(self.styleSheet())
+        
+        if dialog.exec():
+            selected = dialog.selectedFiles()
+            if selected:
+                self.display_first_image(selected[0])
 
     def display_first_image(self, zip_path):
         self.current_zip_path = zip_path
@@ -236,28 +262,58 @@ class AyoArch(QMainWindow):
             self.archive_name_label.setText(os.path.basename(zip_path))
             self.archive_name_label.setVisible(True)
             self.sidebar_spacer.setVisible(False)
-            with zipfile.ZipFile(zip_path, 'r') as z:
-                # Wypełnij drzewo plików
-                self.populate_tree(z)
-                self.file_tree.setVisible(True)
+            
+            file_list = []
+            if zip_path.lower().endswith('.7z'):
+                global py7zr
+                if py7zr is None:
+                    reply = QMessageBox.question(
+                        self, 
+                        self.strings.get("dep_install_title", "Wymagany dodatek"), 
+                        self.strings.get("dep_install_question", "Obsługa plików .7z wymaga biblioteki 'py7zr'.\nCzy chcesz, aby program pobrał i zainstalował ją teraz automatycznie?"),
+                        QMessageBox.Yes | QMessageBox.No
+                    )
+                    
+                    if reply == QMessageBox.Yes:
+                        self.image_label.setText(self.strings.get("dep_installing", "Instalowanie biblioteki py7zr... Proszę czekać."))
+                        QApplication.setOverrideCursor(Qt.WaitCursor)
+                        QApplication.processEvents()
+                        try:
+                            subprocess.check_call([sys.executable, "-m", "pip", "install", "py7zr"])
+                            import py7zr as lib
+                            py7zr = lib
+                        except Exception as e:
+                            self.image_label.setText(f"{self.strings.get('dep_install_error', 'Błąd instalacji: ')}{e}")
+                            QApplication.restoreOverrideCursor()
+                            return
+                        finally:
+                            QApplication.restoreOverrideCursor()
+                    else:
+                        self.image_label.setText(self.strings.get("dep_install_cancel", "Anulowano. Biblioteka py7zr jest wymagana dla plików .7z."))
+                        return
 
-                # Szukamy plików graficznych (ignorujemy wielkość liter)
-                # Rozszerzona lista formatów (TIFF, ICO, BMP, GIF, WEBP i inne)
-                valid_exts = ('.png', '.jpg', '.jpeg', '.bmp', '.gif', '.tiff', '.tif', '.ico', '.webp')
-                images = [f for f in z.namelist() if f.lower().endswith(valid_exts)]
-                
-                if images:
-                    # Sortujemy, aby mieć pewność kolejności (np. page_01, page_02)
-                    images.sort()
-                    with z.open(images[0]) as f:
-                        data = f.read()
-                        img = QImage.fromData(data)
-                        self.current_pixmap = QPixmap.fromImage(img)
-                        self.update_image_display()
-                        self.setWindowTitle(f"Ayo Arch - {zip_path}")
-                else:
-                    self.image_label.setText(self.strings.get("no_images_error", "Brak obrazów!"))
-                    self.current_pixmap = None
+                with py7zr.SevenZipFile(zip_path, mode='r') as z:
+                    file_list = z.getnames()
+            else:
+                with zipfile.ZipFile(zip_path, 'r') as z:
+                    file_list = z.namelist()
+
+            # Wypełnij drzewo plików
+            self.populate_tree(file_list)
+            self.file_tree.setVisible(True)
+
+            # Szukamy plików graficznych
+            valid_exts = ('.png', '.jpg', '.jpeg', '.bmp', '.gif', '.tiff', '.tif', '.ico', '.webp')
+            images = [f for f in file_list if f.lower().endswith(valid_exts)]
+            
+            if images:
+                # Sortujemy, aby mieć pewność kolejności (np. page_01, page_02)
+                images.sort()
+                self.load_image_from_zip(images[0])
+                self.setWindowTitle(f"Ayo Arch - {zip_path}")
+            else:
+                self.image_label.setText(self.strings.get("no_images_error", "Brak obrazów!"))
+                self.current_pixmap = None
         except Exception as e:
             self.image_label.setText(f"{self.strings.get('error_prefix', 'Błąd: ')}{str(e)}")
             self.current_pixmap = None
@@ -272,10 +328,10 @@ class AyoArch(QMainWindow):
             )
             self.image_label.setPixmap(scaled)
 
-    def populate_tree(self, zfile):
+    def populate_tree(self, file_list):
         self.file_tree.clear()
         
-        for name in sorted(zfile.namelist()):
+        for name in sorted(file_list):
             parts = name.rstrip('/').split('/')
             parent = self.file_tree.invisibleRootItem()
             
@@ -313,11 +369,20 @@ class AyoArch(QMainWindow):
 
     def load_image_from_zip(self, filename):
         try:
-            with zipfile.ZipFile(self.current_zip_path, 'r') as z:
-                with z.open(filename) as f:
-                    data = f.read()
-                    img = QImage.fromData(data)
-                    self.current_pixmap = QPixmap.fromImage(img)
-                    self.update_image_display()
+            data = None
+            if self.current_zip_path.lower().endswith('.7z'):
+                if py7zr:
+                    with py7zr.SevenZipFile(self.current_zip_path, mode='r') as z:
+                        data_map = z.read(targets=[filename])
+                        data = data_map[filename].read()
+            else:
+                with zipfile.ZipFile(self.current_zip_path, 'r') as z:
+                    with z.open(filename) as f:
+                        data = f.read()
+            
+            if data:
+                img = QImage.fromData(data)
+                self.current_pixmap = QPixmap.fromImage(img)
+                self.update_image_display()
         except Exception as e:
             self.image_label.setText(f"{self.strings.get('error_prefix', 'Błąd: ')}{str(e)}")
