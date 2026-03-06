@@ -1,1 +1,1 @@
-# Pakiet themes
+# Themes package

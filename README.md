@@ -1,151 +1,262 @@
-# AyoARCH 1.2.0 – Intelligent ZIP Image Viewer 📦🖼️
+# AyoARCH 1.5.0 – Intelligent Archive Image Viewer 📦🖼️
 
-![License](https://img.shields.io/badge/license-MIT-blue.svg)
-![Python](https://img.shields.io/badge/python-3.10%2B-blue.svg)
-![Platform](https://img.shields.io/badge/platform-Linux%20%7C%20Windows-lightgrey.svg)
+AyoARCH is a fast and lightweight desktop application designed to browse images directly inside archive files — without extracting them to disk.
 
-**AyoARCH** is a fast and lightweight image viewer designed to browse images directly inside ZIP archives — without extracting files to disk.
-Built for creators, writers, and collectors who value speed, order, and disk efficiency.
+Built for creators, researchers, writers, and collectors who work with large visual libraries and want fast, clean, and organized access to images.
 
----
+Part of the Ayo Ecosystem.
 
-## 📸 Program Preview
+## 📸 Screenshots
 
-|                            Dark Theme                           |                                Creative Theme                               |                             Relax Theme                            |                              Settings                             |
-| :-------------------------------------------------------------: | :-------------------------------------------------------------------------: | :----------------------------------------------------------------: | :---------------------------------------------------------------: |
-| [![Dark](screenshots/main_dark.png)](screenshots/main_dark.png) | [![Creative](screenshots/main_creative.png)](screenshots/main_creative.png) | [![Relax](screenshots/main_relax.png)](screenshots/main_relax.png) | [![Settings](screenshots/settings.png)](screenshots/settings.png) |
+### Main Interface Themes
 
----
+| Dark | Light | Creative | Relax | System |
+|---|---|---|---|---|
+| [![Dark](screenshots/main_dark.png)](screenshots/main_dark.png) | *(screenshot not available yet)* | [![Creative](screenshots/main_creative.png)](screenshots/main_creative.png) | [![Relax](screenshots/main_relax.png)](screenshots/main_relax.png) | *(screenshot not available yet)* |
 
-## 🆕 What’s New in 1.2.0
+### Functional Views
 
-* 🎨 **New Creative Theme** added to the Ayo visual style family
-* ⚙️ **Code optimizations and internal improvements** for better performance and stability
-* 🧠 Improved responsiveness when browsing large archives
-* 📦 **Added support for .7z and .cbz archives**
-* 🔧 **Smart Dependency Manager** – automatically installs missing libraries (like py7zr) when needed
-* 🌍 **Expanded Language Support** – now supporting 15 languages with native flag icons
-* 🖥️ **Native Dialog Integration** – file dialogs now respect system language and application theme
+| Theme Selection | Language Selection |
+|---|---|
+| [![Theme Selection](screenshots/settings.png)](screenshots/settings.png) | [![Language Selection](screenshots/settings.png)](screenshots/settings.png) |
 
----
+## 🆕 What’s New in 1.5.0
+
+### 🌍 Modern Internationalization System
+
+AyoARCH now uses a JSON-based translation system.
+
+#### ✔ Migration to JSON
+
+All language files moved from Python modules to:
+
+`i18n/<language>.json`
+
+Advantages:
+
+- easier language management
+- simpler translation updates
+- cleaner project architecture
+
+### 🌐 Expanded Language Support
+
+AyoARCH now supports 24 languages:
+
+| | | |
+|---|---|---|
+| 🇵🇱 Polish | 🇺🇸 English | 🇪🇸 Spanish |
+| 🇫🇷 French | 🇩🇪 German | 🇳🇱 Dutch |
+| 🇩🇰 Danish | 🇸🇪 Swedish | 🇳🇴 Norwegian |
+| 🇫🇮 Finnish | 🇮🇸 Icelandic | 🇭🇺 Hungarian |
+| 🇷🇴 Romanian | 🇧🇬 Bulgarian | 🇮🇹 Italian |
+| 🇵🇹 Portuguese | 🇺🇦 Ukrainian | 🇨🇿 Czech |
+| 🇸🇰 Slovak | 🇱🇹 Lithuanian | 🇱🇻 Latvian |
+| 🇪🇪 Estonian | 🇬🇷 Greek | 🇬🇪 Georgian |
+
+### 📦 Archive Creation Support
+
+AyoARCH now includes a ZIP archive creator.
+
+Features:
+
+- drag & drop file selection
+- thumbnail preview system
+- clean visual layout
+- ZIP archive generation
+- protection against empty archives
+
+### 📂 Expanded Archive Format Support
+
+Supported archive formats:
+
+- ZIP
+- 7Z
+- CBZ
+- RAR
+- CBR
+
+### Smart Dependency Manager
+
+If optional libraries are missing (`py7zr`, `rarfile`), AyoARCH will automatically:
+
+- detect the missing module
+- ask the user for permission
+- install it automatically
+
+Ensuring a smooth experience without manual setup.
 
 ## 🚀 Key Features
 
 ### ⚡ Zero-Temp Strategy
 
 Images are loaded directly into RAM.
-The application **never creates temporary files**, keeping your system clean and your SSD safe.
 
-### 📦 Instant ZIP Access
+AyoARCH never creates temporary files, which means:
 
-Browse images directly inside ZIP, 7z and CBZ archives with no extraction and no waiting.
+- faster browsing
+- clean filesystem
+- SSD-friendly workflow
 
-### 🎨 Ayo Interface
+### 📦 Instant Archive Browsing
 
-Consistent UI design shared across the Ayo ecosystem:
+Open and browse images directly inside archives without extraction.
 
-* Dark Theme
-* Relax Theme
-* **Creative Theme (new in 1.0.1)**
+Supported archive types:
 
-### 🪟 Professional Settings Workflow
+- ZIP
+- 7Z
+- CBZ
+- RAR
+- CBR
 
-Modal settings window ensures a clean and distraction-free workflow.
+### 🧠 Smart Archive Navigation
 
-### 💨 Lightweight & Fast
+Sidebar archive explorer:
 
-Minimal dependencies and optimized loading for instant image browsing.
+- browse folder structure inside archives
+- fast navigation
+- optimized for large archives
 
-### 🧠 Smart Dependency Handling
+### 🖼️ Modern Drag & Drop Workflow
 
-The application automatically detects missing libraries for specific formats (e.g., .7z) and offers to install them on demand, ensuring a smooth experience without manual configuration.
+Supports:
 
----
+- drag & drop archive opening
+- drag & drop files into archive creator
+- multi-file workflows
+
+### 🎨 Themes
+
+AyoARCH features a modern theme system.
+
+Available themes:
+
+- Dark Theme
+- Light Theme
+- Creative Theme
+- Relax Theme
+- System Theme
+
+Features:
+
+- dynamic theme switching
+- consistent UI styling
+- non-native Qt dialogs for full theme control
 
 ## 🖼️ Supported Image Formats
 
-**Standard**
+### Standard formats
 
-* PNG
-* JPG / JPEG
-* BMP
-* GIF
+- PNG
+- JPG / JPEG
+- BMP
+- GIF
 
-**Professional & Modern**
+### Modern formats
 
-* TIFF / TIF
-* WEBP
+- TIFF / TIF
+- WEBP
 
-**System Icons**
+### System icons
 
-* ICO
+- ICO
 
----
+## 🏗️ Architecture
 
-## 🌍 Supported Languages
+AyoARCH uses a modular Python + Qt structure.
 
-* 🇵🇱 Polish
-* 🇺🇸 English
-* 🇵🇹 Portuguese
-* 🇨🇿 Czech
-* 🇺🇦 Ukrainian
-* 🇱🇻 Latvian
-* 🇱🇹 Lithuanian
-* 🇪🇪 Estonian
-* 🇪🇸 Spanish
-* 🇫🇷 French
-* 🇮🇹 Italian
-* 🇷🇴 Romanian
-* 🇸🇰 Slovak
-* 🇬🇷 Greek
-* 🇬🇪 Georgian
+- `main.py`
+- `ui.py`
+- `settings.py`
+- `themes/`
+- `i18n/`
+- `assets/`
 
----
+Core components:
 
-## 🎨 Visual Identity (Ayo Style)
+- modular GUI architecture
+- theme styling system
+- JSON-based translation layer
+- archive management layer
+- smart dependency manager
 
-| Element      | Color     |
-| ------------ | --------- |
-| Background   | `#2e2e2e` |
-| Accent Gold  | `#e1ad01` |
-| Primary Text | `#ffffff` |
+## 🛠 Technology
 
----
+Developed with modern Python and Qt tools.
 
-## 🛠️ Technology
+- Python 3.10+
+- PySide6 (Qt for Python)
+- zipfile (Python standard library)
+- py7zr (optional)
+- rarfile (optional)
 
-Developed on Linux using a modern Python + Qt stack:
+Development environment:
 
-* **Language:** Python 3
-* **GUI:** PySide6 (Qt for Python)
-* **Archive Engine:** zipfile (Python standard library)
-* **Development Environment:** OpenSUSE + KDE Plasma
-
----
+- openSUSE
+- Fedora
 
 ## 🌌 Ayo Ecosystem
 
-* **Ayo-UP** – file uploading and update management
-* **AyoCONVERT** – high-quality file conversion
-* **AyoSORT** – intelligent image categorization
+AyoARCH is part of a growing set of creative tools.
+
+- AyoUP – intelligent image upscaler
+- AyoCONVERT – file conversion tool
+- AyoSORT – intelligent image categorization
 
 More projects:
-👉 https://klucznik26.github.io/AyoWWW/
 
----
+👉 https://klucznik26.github.io/AyoWWW/
 
 ## 📖 About the Project
 
-AyoARCH was created as part of a creative toolkit supporting visual research and world-building.
-The application was designed to quickly browse large collections of reference images stored in archives — without cluttering disk space.
+AyoARCH was created as part of a creative toolkit supporting:
 
----
+- visual research
+- world-building
+- image reference libraries
+- archive-based image collections
+
+The goal is simple:
+
+Browse large collections of images stored inside archives instantly — without unpacking them.
 
 ## 📥 Installation
+
+### Clone repository
 
 ```bash
 git clone https://github.com/Klucznik26/AyoARCH.git
 cd AyoARCH
+```
+
+### Install dependencies
+
+```bash
 pip install -r requirements.txt
+```
+
+### Run application
+
+```bash
 python main.py
 ```
+
+## 🗺 Roadmap
+
+Planned future improvements:
+
+- AppImage distribution for Linux
+- performance optimization for very large archives
+- improved thumbnail caching
+- additional archive creation options
+- extended image metadata support
+
+## 🤝 Contributing
+
+Contributions, feedback, and suggestions are welcome.
+
+Feel free to open issues or submit pull requests.
+
+## 📄 License
+
+This project is released under the MIT License.

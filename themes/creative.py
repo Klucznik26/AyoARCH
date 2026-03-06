@@ -1,33 +1,34 @@
 CREATIVE_THEME = """
 /* =========================
-   MOTYW KREATYWNY (BLUE)
+   MOTYW KREATYWNY (PURPLE/CYAN)
    ========================= */
 
 QMainWindow {
-    background-color: #1B262C;
+    background-color: #14161C;
 }
 
 QDialog {
-    background-color: #1B262C;
+    background-color: #14161C;
+    color: #E6E8FF;
 }
 
 /* =========================
    RAMKI / PANELE
    ========================= */
 QFrame {
-    background-color: #202d36;
-    border: 1px solid #3282B8;
+    background-color: #1E2129;
+    border: 1px solid #3A3F55;
 }
 
 /* =========================
    TEKST
    ========================= */
 QLabel {
-    color: #BBE1FA;
+    color: #E6E8FF;
 }
 
 QLabel[secondary="true"] {
-    color: #566E7A;
+    color: #8F93B0;
 }
 
 /* =========================
@@ -35,44 +36,44 @@ QLabel[secondary="true"] {
    ========================= */
 QPushButton {
     padding: 8px 14px;
-    background-color: #0F4C75;
-    border: 1px solid #3282B8;
+    background-color: #2B2F3A;
+    border: 1px solid #3A3F55;
     border-radius: 6px;
-    color: #BBE1FA;
+    color: #E6E8FF;
     font-weight: bold;
 }
 
 QPushButton:hover {
-    background-color: #3282B8;
+    background-color: #3A3F55;
     color: #FFFFFF;
 }
 
 QPushButton:pressed {
-    background-color: #0F4C75;
-    border: 2px solid #BBE1FA;
+    background-color: #1F222B;
+    border: 1px solid #3A3F55;
 }
 
 QPushButton:disabled {
-    background-color: #243441;
-    color: #566E7A;
-    border: 1px solid #2C3E50;
+    background-color: #1E2129;
+    color: #8F93B0;
+    border: 1px solid #3A3F55;
 }
 
 /* =========================
    PRZYCISK WYKONAJ (AKCENT)
    ========================= */
 QPushButton#runButton {
-    background-color: #3282B8;
+    background-color: #8A5CFF;
     border: none;
     color: #FFFFFF;
 }
 
 QPushButton#runButton:hover {
-    background-color: #5199C9;
+    background-color: #B88CFF;
 }
 
 QPushButton#runButton:pressed {
-    background-color: #266590;
+    background-color: #6A3AB2;
 }
 
 /* =========================
@@ -80,24 +81,24 @@ QPushButton#runButton:pressed {
    ========================= */
 QSlider::groove:horizontal {
     height: 6px;
-    background: #0F4C75;
+    background: #2B2F3A;
     border-radius: 3px;
 }
 
 QSlider::handle:horizontal {
-    background: #3282B8;
+    background: #8A5CFF;
     width: 16px;
     margin: -5px 0;
     border-radius: 8px;
 }
 
 QSlider::sub-page:horizontal {
-    background: #BBE1FA;
+    background: #00E5FF;
     border-radius: 3px;
 }
 
 QSlider::add-page:horizontal {
-    background: #0F4C75;
+    background: #2B2F3A;
     border-radius: 3px;
 }
 
@@ -105,9 +106,9 @@ QSlider::add-page:horizontal {
    KONTROLKI FORMULARZY
    ========================= */
 QComboBox {
-    background-color: #0F4C75;
-    color: #BBE1FA;
-    border: 1px solid #3282B8;
+    background-color: #252833; /* Karta robocza */
+    color: #E6E8FF;
+    border: 1px solid #3A3F55;
     padding: 4px;
 }
 
@@ -116,18 +117,57 @@ QComboBox::drop-down {
 }
 
 QListView, QTreeView {
-    background-color: #202d36;
-    color: #BBE1FA;
-    border: 1px solid #3282B8;
+    background-color: #252833;
+    color: #E6E8FF;
+    border: 1px solid #3A3F55;
+    outline: none;
+}
+
+QTreeView::item:selected, QListView::item:selected {
+    background-color: #8A5CFF;
+    color: #FFFFFF;
+}
+
+QHeaderView::section {
+    background-color: #252833;
+    color: #E6E8FF;
+    border: none;
+    padding: 4px;
+}
+
+QLineEdit {
+    background-color: #252833;
+    color: #E6E8FF;
+    border: 1px solid #3A3F55;
+    border-radius: 4px;
+}
+
+/* =========================
+   NARZĘDZIA
+   ========================= */
+QToolButton {
+    background-color: transparent;
+    border: none;
+    border-radius: 4px;
+    color: #E6E8FF;
+    padding: 4px;
+}
+
+QToolButton:hover {
+    background-color: #252833;
+}
+
+QToolButton:pressed {
+    background-color: #1E2129;
 }
 """
 
 DROP_ZONE = """
     QLabel {
-        background-color: #0F4C75;
-        border: 2px dashed #3282B8;
+        background: qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 rgba(138, 92, 255, 0.25), stop:1 rgba(0, 229, 255, 0.08));
+        border: 2px dashed #8A5CFF;
         border-radius: 10px;
-        color: #BBE1FA;
+        color: #8A5CFF;
         font-size: 18px;
     }
 """

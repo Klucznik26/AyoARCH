@@ -16,6 +16,7 @@ def create_i18n():
     pl_content = """STRINGS = {
     "app_title": "Ayo Arch v1.2.0 - Archive Viewer",
     "open_archive": "Otwórz archiwum",
+    "create_archive": "Utwórz archiwum",
     "save_dir": "Katalog zapisu",
     "settings": "Ustawienia",
     "close": "Zamknij",
@@ -27,7 +28,7 @@ def create_i18n():
     "theme_relax": "Relaksacyjny",
     "theme_creative": "Kreatywny",
     "theme_system": "Systemowy",
-    "not_zip_error": "To nie jest plik .zip!",
+            "not_zip_error": "To nie jest obsługiwane archiwum!",
     "no_images_error": "Brak obrazów w ZIP!",
     "error_prefix": "Błąd: ",
     "save": "Zapisz",
@@ -37,7 +38,14 @@ def create_i18n():
     "dep_installing": "Instalowanie biblioteki py7zr... Proszę czekać.",
     "dep_install_error": "Błąd instalacji: ",
     "dep_install_cancel": "Anulowano. Biblioteka py7zr jest wymagana dla plików .7z.",
-    "file_name": "Nazwa pliku"
+            "dep_install_question_rar": "Obsługa plików .rar wymaga biblioteki 'rarfile'.\nCzy chcesz, aby program pobrał i zainstalował ją teraz automatycznie?",
+            "dep_installing_rar": "Instalowanie biblioteki rarfile... Proszę czekać.",
+            "dep_install_cancel_rar": "Anulowano. Biblioteka rarfile jest wymagana dla plików .rar.",
+            "file_name": "Nazwa pliku",
+    "create_archive_title": "Kreator Archiwum",
+    "drop_images_create": "Przeciągnij obrazy do stworzenia archiwum",
+    "create_confirm": "Utwórz ZIP",
+    "files_count": "Plików: "
 }"""
     with open(os.path.join(i18n_dir, "pl.py"), "w", encoding="utf-8") as f:
         f.write(pl_content)
@@ -46,6 +54,7 @@ def create_i18n():
     lt_content = """STRINGS = {
     "app_title": "Ayo Arch v1.2.0 - Archyvų peržiūra",
     "open_archive": "Atidaryti archyvą",
+    "create_archive": "Sukurti archyvą",
     "save_dir": "Pasirinkti išsaugojimo aplanką",
     "settings": "Nustatymai",
     "close": "Uždaryti",
@@ -67,7 +76,14 @@ def create_i18n():
     "dep_installing": "Diegiama py7zr biblioteka... Prašome palaukti.",
     "dep_install_error": "Diegimo klaida: ",
     "dep_install_cancel": "Atšaukta. .7z failams reikalinga py7zr biblioteka.",
-    "file_name": "Failo pavadinimas"
+            "dep_install_question_rar": ".rar failų palaikymui reikalinga 'rarfile' biblioteka.\nAr norite ją atsisiųsti ir įdiegti automatiškai dabar?",
+            "dep_installing_rar": "Diegiama rarfile biblioteka... Prašome palaukti.",
+            "dep_install_cancel_rar": "Atšaukta. .rar failams reikalinga rarfile biblioteka.",
+            "file_name": "Failo pavadinimas",
+    "create_archive_title": "Archyvo kūrimas",
+    "drop_images_create": "Nutempkite vaizdus archyvui sukurti",
+    "create_confirm": "Sukurti ZIP",
+    "files_count": "Failų: "
 }"""
     with open(os.path.join(i18n_dir, "lt.py"), "w", encoding="utf-8") as f:
         f.write(lt_content)
@@ -76,6 +92,7 @@ def create_i18n():
     en_content = """STRINGS = {
     "app_title": "Ayo Arch v1.2.0 - Archive Viewer",
     "open_archive": "Open Archive",
+    "create_archive": "Create Archive",
     "save_dir": "Save Directory",
     "settings": "Settings",
     "close": "Close",
@@ -87,7 +104,7 @@ def create_i18n():
     "theme_relax": "Relax",
     "theme_creative": "Creative",
     "theme_system": "System",
-    "not_zip_error": "This is not a .zip file!",
+            "not_zip_error": "This is not a supported archive!",
     "no_images_error": "No images in ZIP!",
     "error_prefix": "Error: ",
     "save": "Save",
@@ -97,7 +114,14 @@ def create_i18n():
     "dep_installing": "Installing py7zr library... Please wait.",
     "dep_install_error": "Installation error: ",
     "dep_install_cancel": "Cancelled. The py7zr library is required for .7z files.",
-    "file_name": "File Name"
+            "dep_install_question_rar": "Support for .rar files requires 'rarfile' library.\nDo you want to download and install it automatically now?",
+            "dep_installing_rar": "Installing rarfile library... Please wait.",
+            "dep_install_cancel_rar": "Cancelled. The rarfile library is required for .rar files.",
+            "file_name": "File Name",
+    "create_archive_title": "Archive Creator",
+    "drop_images_create": "Drag images to create archive",
+    "create_confirm": "Create ZIP",
+    "files_count": "Files: "
 }"""
     with open(os.path.join(i18n_dir, "en.py"), "w", encoding="utf-8") as f:
         f.write(en_content)
@@ -106,6 +130,7 @@ def create_i18n():
     es_content = """STRINGS = {
     "app_title": "Ayo Arch v1.2.0 - Visor de Archivos",
     "open_archive": "Abrir archivo",
+    "create_archive": "Crear archivo",
     "save_dir": "Directorio de guardado",
     "settings": "Configuración",
     "close": "Cerrar",
@@ -127,7 +152,14 @@ def create_i18n():
     "dep_installing": "Instalando la biblioteca py7zr... Por favor espere.",
     "dep_install_error": "Error de instalación: ",
     "dep_install_cancel": "Cancelado. La biblioteca py7zr es necesaria para archivos .7z.",
-    "file_name": "Nombre del archivo"
+            "dep_install_question_rar": "El soporte para archivos .rar requiere la biblioteca 'rarfile'.\n¿Desea descargarla e instalarla automáticamente ahora?",
+            "dep_installing_rar": "Instalando la biblioteca rarfile... Por favor espere.",
+            "dep_install_cancel_rar": "Cancelado. La biblioteca rarfile es necesaria para archivos .rar.",
+            "file_name": "Nombre del archivo",
+    "create_archive_title": "Creador de Archivos",
+    "drop_images_create": "Arrastra imágenes para crear archivo",
+    "create_confirm": "Crear ZIP",
+    "files_count": "Archivos: "
 }"""
     with open(os.path.join(i18n_dir, "es.py"), "w", encoding="utf-8") as f:
         f.write(es_content)
@@ -136,6 +168,7 @@ def create_i18n():
     fr_content = """STRINGS = {
     "app_title": "Ayo Arch v1.2.0 - Visionneuse d'archives",
     "open_archive": "Ouvrir l'archive",
+    "create_archive": "Créer une archive",
     "save_dir": "Répertoire de sauvegarde",
     "settings": "Paramètres",
     "close": "Fermer",
@@ -157,7 +190,14 @@ def create_i18n():
     "dep_installing": "Installation de la bibliothèque py7zr... Veuillez patienter.",
     "dep_install_error": "Erreur d'installation : ",
     "dep_install_cancel": "Annulé. La bibliothèque py7zr est requise pour les fichiers .7z.",
-    "file_name": "Nom du fichier"
+            "dep_install_question_rar": "Le support des fichiers .rar nécessite la bibliothèque 'rarfile'.\nVoulez-vous la télécharger et l'installer automatiquement maintenant ?",
+            "dep_installing_rar": "Installation de la bibliothèque rarfile... Veuillez patienter.",
+            "dep_install_cancel_rar": "Annulé. La bibliothèque rarfile est requise pour les fichiers .rar.",
+            "file_name": "Nom du fichier",
+    "create_archive_title": "Créateur d'archives",
+    "drop_images_create": "Glissez des images pour créer l'archive",
+    "create_confirm": "Créer ZIP",
+    "files_count": "Fichiers : "
 }"""
     with open(os.path.join(i18n_dir, "fr.py"), "w", encoding="utf-8") as f:
         f.write(fr_content)
@@ -166,6 +206,7 @@ def create_i18n():
     it_content = """STRINGS = {
     "app_title": "Ayo Arch v1.2.0 - Visualizzatore di archivi",
     "open_archive": "Apri archivio",
+    "create_archive": "Crea archivio",
     "save_dir": "Cartella di salvataggio",
     "settings": "Impostazioni",
     "close": "Chiudi",
@@ -187,7 +228,14 @@ def create_i18n():
     "dep_installing": "Installazione della libreria py7zr... Attendere prego.",
     "dep_install_error": "Errore di installazione: ",
     "dep_install_cancel": "Annullato. La libreria py7zr è richiesta per i file .7z.",
-    "file_name": "Nome del file"
+            "dep_install_question_rar": "Il supporto per i file .rar richiede la libreria 'rarfile'.\nVuoi scaricarla e installarla automaticamente ora?",
+            "dep_installing_rar": "Installazione della libreria rarfile... Attendere prego.",
+            "dep_install_cancel_rar": "Annullato. La libreria rarfile è richiesta per i file .rar.",
+            "file_name": "Nome del file",
+    "create_archive_title": "Creatore di Archivi",
+    "drop_images_create": "Trascina immagini per creare archivio",
+    "create_confirm": "Crea ZIP",
+    "files_count": "File: "
 }"""
     with open(os.path.join(i18n_dir, "it.py"), "w", encoding="utf-8") as f:
         f.write(it_content)
@@ -196,6 +244,7 @@ def create_i18n():
     ro_content = """STRINGS = {
     "app_title": "Ayo Arch v1.2.0 - Vizualizator de arhive",
     "open_archive": "Deschide arhiva",
+    "create_archive": "Creează arhivă",
     "save_dir": "Director de salvare",
     "settings": "Setări",
     "close": "Închide",
@@ -217,7 +266,14 @@ def create_i18n():
     "dep_installing": "Se instalează biblioteca py7zr... Vă rugăm să așteptați.",
     "dep_install_error": "Eroare la instalare: ",
     "dep_install_cancel": "Anulat. Biblioteca py7zr este necesară pentru fișierele .7z.",
-    "file_name": "Nume fișier"
+            "dep_install_question_rar": "Suportul pentru fișierele .rar necesită biblioteca 'rarfile'.\nDoriți să o descărcați și să o instalați automat acum?",
+            "dep_installing_rar": "Se instalează biblioteca rarfile... Vă rugăm să așteptați.",
+            "dep_install_cancel_rar": "Anulat. Biblioteca rarfile este necesară pentru fișierele .rar.",
+            "file_name": "Nume fișier",
+    "create_archive_title": "Creator de Arhive",
+    "drop_images_create": "Trage imagini pentru a crea arhiva",
+    "create_confirm": "Creează ZIP",
+    "files_count": "Fișiere: "
 }"""
     with open(os.path.join(i18n_dir, "ro.py"), "w", encoding="utf-8") as f:
         f.write(ro_content)
@@ -226,6 +282,7 @@ def create_i18n():
     sk_content = """STRINGS = {
     "app_title": "Ayo Arch v1.2.0 - Prehliadač archívov",
     "open_archive": "Otvoriť archív",
+    "create_archive": "Vytvoriť archív",
     "save_dir": "Adresár pre uloženie",
     "settings": "Nastavenia",
     "close": "Zavrieť",
@@ -247,7 +304,14 @@ def create_i18n():
     "dep_installing": "Inštalácia knižnice py7zr... Čakajte prosím.",
     "dep_install_error": "Chyba inštalácie: ",
     "dep_install_cancel": "Zrušené. Knižnica py7zr je vyžadovaná pre súbory .7z.",
-    "file_name": "Názov súboru"
+            "dep_install_question_rar": "Podpora súborov .rar vyžaduje knižnicu 'rarfile'.\nChcete ju teraz automaticky stiahnuť a nainštalovať?",
+            "dep_installing_rar": "Inštalácia knižnice rarfile... Čakajte prosím.",
+            "dep_install_cancel_rar": "Zrušené. Knižnica rarfile je vyžadovaná pre súbory .rar.",
+            "file_name": "Názov súboru",
+    "create_archive_title": "Tvorca archívov",
+    "drop_images_create": "Presuňte obrázky na vytvorenie archívu",
+    "create_confirm": "Vytvoriť ZIP",
+    "files_count": "Súborov: "
 }"""
     with open(os.path.join(i18n_dir, "sk.py"), "w", encoding="utf-8") as f:
         f.write(sk_content)
@@ -256,6 +320,7 @@ def create_i18n():
     el_content = """STRINGS = {
     "app_title": "Ayo Arch v1.2.0 - Προβολή Αρχείων",
     "open_archive": "Άνοιγμα αρχείου",
+    "create_archive": "Δημιουργία αρχείου",
     "save_dir": "Κατάλογος αποθήκευσης",
     "settings": "Ρυθμίσεις",
     "close": "Κλείσιμο",
@@ -277,7 +342,14 @@ def create_i18n():
     "dep_installing": "Εγκατάσταση βιβλιοθήκης py7zr... Παρακαλώ περιμένετε.",
     "dep_install_error": "Σφάλμα εγκατάστασης: ",
     "dep_install_cancel": "Ακυρώθηκε. Η βιβλιοθήκη py7zr απαιτείται για αρχεία .7z.",
-    "file_name": "Όνομα αρχείου"
+            "dep_install_question_rar": "Η υποστήριξη αρχείων .rar απαιτεί τη βιβλιοθήκη 'rarfile'.\nΘέλετε να τη κατεβάσετε και να την εγκαταστήσετε αυτόματα τώρα?",
+            "dep_installing_rar": "Εγκατάσταση βιβλιοθήκης rarfile... Παρακαλώ περιμένετε.",
+            "dep_install_cancel_rar": "Ακυρώθηκε. Η βιβλιοθήκη rarfile απαιτείται για αρχεία .rar.",
+            "file_name": "Όνομα αρχείου",
+    "create_archive_title": "Δημιουργός Αρχείου",
+    "drop_images_create": "Σύρετε εικόνες για δημιουργία αρχείου",
+    "create_confirm": "Δημιουργία ZIP",
+    "files_count": "Αρχεία: "
 }"""
     with open(os.path.join(i18n_dir, "el.py"), "w", encoding="utf-8") as f:
         f.write(el_content)
@@ -286,6 +358,7 @@ def create_i18n():
     ka_content = """STRINGS = {
     "app_title": "Ayo Arch v1.2.0 - არქივის დამთვალიერებელი",
     "open_archive": "არქივის გახსნა",
+    "create_archive": "არქივის შექმნა",
     "save_dir": "შენახვის დირექტორია",
     "settings": "პარამეტრები",
     "close": "დახურვა",
@@ -307,7 +380,14 @@ def create_i18n():
     "dep_installing": "py7zr ბიბლიოთეკის ინსტალაცია... გთხოვთ დაელოდოთ.",
     "dep_install_error": "ინსტალაციის შეცდომა: ",
     "dep_install_cancel": "გაუქმებულია. py7zr ბიბლიოთეკა საჭიროა .7z ფაილებისთვის.",
-    "file_name": "ფაილის სახელი"
+            "dep_install_question_rar": ".rar ფაილების მხარდაჭერა მოითხოვს 'rarfile' ბიბლიოთეკას.\nგსურთ მისი ავტომატურად ჩამოტვირთვა და ინსტალაცია ახლა?",
+            "dep_installing_rar": "rarfile ბიბლიოთეკის ინსტალაცია... გთხოვთ დაელოდოთ.",
+            "dep_install_cancel_rar": "გაუქმებულია. rarfile ბიბლიოთეკა საჭიროა .rar ფაილებისთვის.",
+            "file_name": "ფაილის სახელი",
+    "create_archive_title": "არქივის შემქმნელი",
+    "drop_images_create": "გადმოიტანეთ სურათები არქივის შესაქმნელად",
+    "create_confirm": "ZIP შექმნა",
+    "files_count": "ფაილები: "
 }"""
     with open(os.path.join(i18n_dir, "ka.py"), "w", encoding="utf-8") as f:
         f.write(ka_content)
@@ -316,6 +396,7 @@ def create_i18n():
     pt_content = """STRINGS = {
     "app_title": "Ayo Arch v1.2.0 - Visualizador de Arquivos",
     "open_archive": "Abrir Arquivo",
+    "create_archive": "Criar Arquivo",
     "save_dir": "Diretório de Salvamento",
     "settings": "Configurações",
     "close": "Fechar",
@@ -337,7 +418,14 @@ def create_i18n():
     "dep_installing": "Instalando a biblioteca py7zr... Por favor, aguarde.",
     "dep_install_error": "Erro de instalação: ",
     "dep_install_cancel": "Cancelado. A biblioteca py7zr é necessária para arquivos .7z.",
-    "file_name": "Nome do Arquivo"
+            "dep_install_question_rar": "O suporte a arquivos .rar requer a biblioteca 'rarfile'.\nDeseja baixar e instalá-la automaticamente agora?",
+            "dep_installing_rar": "Instalando a biblioteca rarfile... Por favor, aguarde.",
+            "dep_install_cancel_rar": "Cancelado. A biblioteca rarfile é necessária para arquivos .rar.",
+            "file_name": "Nome do Arquivo",
+    "create_archive_title": "Criador de Arquivos",
+    "drop_images_create": "Arraste imagens para criar arquivo",
+    "create_confirm": "Criar ZIP",
+    "files_count": "Arquivos: "
 }"""
     with open(os.path.join(i18n_dir, "pt.py"), "w", encoding="utf-8") as f:
         f.write(pt_content)
@@ -346,6 +434,7 @@ def create_i18n():
     cs_content = """STRINGS = {
     "app_title": "Ayo Arch v1.2.0 - Prohlížeč archivů",
     "open_archive": "Otevřít archiv",
+    "create_archive": "Vytvořit archiv",
     "save_dir": "Adresář pro uložení",
     "settings": "Nastavení",
     "close": "Zavřít",
@@ -367,7 +456,14 @@ def create_i18n():
     "dep_installing": "Instalace knihovny py7zr... Čekejte prosím.",
     "dep_install_error": "Chyba instalace: ",
     "dep_install_cancel": "Zrušeno. Knihovna py7zr je vyžadována pro soubory .7z.",
-    "file_name": "Název souboru"
+            "dep_install_question_rar": "Podpora souborů .rar vyžaduje knihovnu 'rarfile'.\nChcete ji nyní automaticky stáhnout a nainstalovat?",
+            "dep_installing_rar": "Instalace knihovny rarfile... Čekejte prosím.",
+            "dep_install_cancel_rar": "Zrušeno. Knihovna rarfile je vyžadována pro soubory .rar.",
+            "file_name": "Název souboru",
+    "create_archive_title": "Tvůrce archivu",
+    "drop_images_create": "Přetáhněte obrázky pro vytvoření archivu",
+    "create_confirm": "Vytvořit ZIP",
+    "files_count": "Souborů: "
 }"""
     with open(os.path.join(i18n_dir, "cs.py"), "w", encoding="utf-8") as f:
         f.write(cs_content)
@@ -376,6 +472,7 @@ def create_i18n():
     uk_content = """STRINGS = {
     "app_title": "Ayo Arch v1.2.0 - Переглядач архівів",
     "open_archive": "Відкрити архів",
+    "create_archive": "Створити архів",
     "save_dir": "Каталог збереження",
     "settings": "Налаштування",
     "close": "Закрити",
@@ -397,7 +494,14 @@ def create_i18n():
     "dep_installing": "Встановлення бібліотеки py7zr... Будь ласка, зачекайте.",
     "dep_install_error": "Помилка встановлення: ",
     "dep_install_cancel": "Скасовано. Бібліотека py7zr необхідна для файлів .7z.",
-    "file_name": "Ім'я файлу"
+            "dep_install_question_rar": "Підтримка файлів .rar вимагає бібліотеки 'rarfile'.\nВи хочете завантажити та встановити її автоматично зараз?",
+            "dep_installing_rar": "Встановлення бібліотеки rarfile... Будь ласка, зачекайте.",
+            "dep_install_cancel_rar": "Скасовано. Бібліотека rarfile необхідна для файлів .rar.",
+            "file_name": "Ім'я файлу",
+    "create_archive_title": "Створення архіву",
+    "drop_images_create": "Перетягніть зображення для створення архіву",
+    "create_confirm": "Створити ZIP",
+    "files_count": "Файлів: "
 }"""
     with open(os.path.join(i18n_dir, "uk.py"), "w", encoding="utf-8") as f:
         f.write(uk_content)
@@ -406,6 +510,7 @@ def create_i18n():
     lv_content = """STRINGS = {
     "app_title": "Ayo Arch v1.2.0 - Arhīvu skatītājs",
     "open_archive": "Atvērt arhīvu",
+    "create_archive": "Izveidot arhīvu",
     "save_dir": "Saglabāšanas direktorija",
     "settings": "Iestatījumi",
     "close": "Aizvērt",
@@ -427,7 +532,14 @@ def create_i18n():
     "dep_installing": "Instalē py7zr bibliotēku... Lūdzu, uzgaidiet.",
     "dep_install_error": "Instalācijas kļūda: ",
     "dep_install_cancel": "Atcelts. .7z failiem nepieciešama py7zr bibliotēka.",
-    "file_name": "Faila nosaukums"
+            "dep_install_question_rar": ".rar failu atbalstam nepieciešama 'rarfile' bibliotēka.\nVai vēlaties to lejupielādēt un instalēt automātiski tagad?",
+            "dep_installing_rar": "Instalē rarfile bibliotēku... Lūdzu, uzgaidiet.",
+            "dep_install_cancel_rar": "Atcelts. .rar failiem nepieciešama rarfile bibliotēka.",
+            "file_name": "Faila nosaukums",
+    "create_archive_title": "Arhīva veidotājs",
+    "drop_images_create": "Velciet attēlus, lai izveidotu arhīvu",
+    "create_confirm": "Izveidot ZIP",
+    "files_count": "Faili: "
 }"""
     with open(os.path.join(i18n_dir, "lv.py"), "w", encoding="utf-8") as f:
         f.write(lv_content)
@@ -436,6 +548,7 @@ def create_i18n():
     et_content = """STRINGS = {
     "app_title": "Ayo Arch v1.2.0 - Arhiivivaatur",
     "open_archive": "Ava arhiiv",
+    "create_archive": "Loo arhiiv",
     "save_dir": "Salvestamise kaust",
     "settings": "Seaded",
     "close": "Sulge",
@@ -457,7 +570,82 @@ def create_i18n():
     "dep_installing": "py7zr teegi installimine... Palun oodake.",
     "dep_install_error": "Installimise viga: ",
     "dep_install_cancel": "Tühistatud. .7z failide jaoks on vajalik py7zr teek.",
-    "file_name": "Faili nimi"
+            "dep_install_question_rar": ".rar failide tugi vajab 'rarfile' teeki.\nKas soovite selle kohe automaatselt alla laadida ja installida?",
+            "dep_installing_rar": "rarfile teegi installimine... Palun oodake.",
+            "dep_install_cancel_rar": "Tühistatud. .rar failide jaoks on vajalik rarfile teek.",
+            "file_name": "Faili nimi",
+            "create_archive_title": "Arhiivi looja",
+            "drop_images_create": "Lohista pildid arhiivi loomiseks",
+            "create_confirm": "Loo ZIP",
+            "files_count": "Failid: "
+        },
+        "de": {
+            "app_title": "Ayo Arch v1.2.0 - Archivbetrachter",
+            "open_archive": "Archiv öffnen",
+            "create_archive": "Archiv erstellen",
+            "save_dir": "Speicherverzeichnis",
+            "settings": "Einstellungen",
+            "close": "Schließen",
+            "drop_zone_text": "Archiv hier ablegen",
+            "theme_label": "Farbthema:",
+            "lang_label": "Sprache:",
+            "theme_dark": "Dunkel",
+            "theme_light": "Hell",
+            "theme_relax": "Entspannung",
+            "theme_creative": "Kreativ",
+            "theme_system": "System",
+            "not_zip_error": "Dies ist kein unterstütztes Archiv!",
+            "no_images_error": "Keine Bilder im ZIP!",
+            "error_prefix": "Fehler: ",
+            "save": "Speichern",
+            "cancel": "Abbrechen",
+            "dep_install_title": "Fehlende Abhängigkeit",
+            "dep_install_question": "Die Unterstützung für .7z-Dateien erfordert die Bibliothek 'py7zr'.\nMöchten Sie sie jetzt automatisch herunterladen und installieren?",
+            "dep_installing": "Installiere py7zr-Bibliothek... Bitte warten.",
+            "dep_install_error": "Installationsfehler: ",
+            "dep_install_cancel": "Abgebrochen. Die py7zr-Bibliothek ist für .7z-Dateien erforderlich.",
+            "dep_install_question_rar": "Die Unterstützung für .rar-Dateien erfordert die Bibliothek 'rarfile'.\nMöchten Sie sie jetzt automatisch herunterladen und installieren?",
+            "dep_installing_rar": "Installiere rarfile-Bibliothek... Bitte warten.",
+            "dep_install_cancel_rar": "Abgebrochen. Die rarfile-Bibliothek ist für .rar-Dateien erforderlich.",
+            "file_name": "Dateiname",
+            "create_archive_title": "Archiversteller",
+            "drop_images_create": "Bilder hierher ziehen, um Archiv zu erstellen",
+            "create_confirm": "ZIP erstellen",
+            "files_count": "Dateien: "
+        },
+        "ru": {
+            "app_title": "Ayo Arch v1.2.0 - Просмотр архивов",
+            "open_archive": "Открыть архив",
+            "create_archive": "Создать архив",
+            "save_dir": "Каталог сохранения",
+            "settings": "Настройки",
+            "close": "Закрыть",
+            "drop_zone_text": "Перетащите архив сюда",
+            "theme_label": "Цветовая тема:",
+            "lang_label": "Язык:",
+            "theme_dark": "Темная",
+            "theme_light": "Светлая",
+            "theme_relax": "Релакс",
+            "theme_creative": "Креативная",
+            "theme_system": "Системная",
+            "not_zip_error": "Это не поддерживаемый архив!",
+            "no_images_error": "Нет изображений в ZIP!",
+            "error_prefix": "Ошибка: ",
+            "save": "Сохранить",
+            "cancel": "Отмена",
+            "dep_install_title": "Отсутствует зависимость",
+            "dep_install_question": "Для поддержки файлов .7z требуется библиотека 'py7zr'.\nВы хотите скачать и установить её автоматически сейчас?",
+            "dep_installing": "Установка библиотеки py7zr... Пожалуйста, подождите.",
+            "dep_install_error": "Ошибка установки: ",
+            "dep_install_cancel": "Отменено. Библиотека py7zr необходима для файлов .7z.",
+            "dep_install_question_rar": "Для поддержки файлов .rar требуется библиотека 'rarfile'.\nВы хотите скачать и установить её автоматически сейчас?",
+            "dep_installing_rar": "Установка библиотеки rarfile... Пожалуйста, подождите.",
+            "dep_install_cancel_rar": "Отменено. Библиотека rarfile необходима для файлов .rar.",
+            "file_name": "Имя файла",
+    "create_archive_title": "Arhiivi looja",
+    "drop_images_create": "Lohista pildid arhiivi loomiseks",
+    "create_confirm": "Loo ZIP",
+    "files_count": "Failid: "
 }"""
     with open(os.path.join(i18n_dir, "et.py"), "w", encoding="utf-8") as f:
         f.write(et_content)

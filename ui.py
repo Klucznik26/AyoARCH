@@ -2,17 +2,24 @@ import os
 import sys
 import subprocess
 import zipfile
-import importlib
+import json
+import re
 try:
     import py7zr
 except ImportError:
     py7zr = None
+try:
+    import rarfile
+except ImportError:
+    rarfile = None
 from PySide6.QtWidgets import (QMainWindow, QLabel, QVBoxLayout, QHBoxLayout, 
                              QWidget, QPushButton, QFileDialog, QSpacerItem, 
                              QSizePolicy, QTreeWidget, QTreeWidgetItem, QMessageBox,
-                             QApplication)
-from PySide6.QtGui import QPixmap, QImage, QDragEnterEvent, QDropEvent, QCursor
-from PySide6.QtCore import Qt, QTranslator, QLocale, QLibraryInfo
+                             QApplication, QFrame, QGraphicsDropShadowEffect,
+                             QTreeView, QTableView, QDialog, QListWidget, QListWidgetItem,
+                             QAbstractItemView)
+from PySide6.QtGui import QPixmap, QImage, QDragEnterEvent, QDropEvent, QCursor, QColor, QIcon
+from PySide6.QtCore import Qt, QTranslator, QLocale, QLibraryInfo, QSettings, QTimer, QSize
 from styles import (MAIN_STYLE, LIGHT_STYLE, RELAX_THEME, SYSTEM_THEME,
                    DROP_ZONE_STYLE, DROP_ZONE_STYLE_LIGHT, DROP_ZONE_STYLE_RELAX, 
                    DROP_ZONE_STYLE_SYSTEM, CREATIVE_THEME, DROP_ZONE_STYLE_CREATIVE,
@@ -20,11 +27,16 @@ from styles import (MAIN_STYLE, LIGHT_STYLE, RELAX_THEME, SYSTEM_THEME,
 from settings import SettingsWindow
 
 class AyoArch(QMainWindow):
+    APP_VERSION = "1.5.0"
+
     def __init__(self):
         super().__init__()
         # Konfiguracja okna
-        self.setWindowTitle("Ayo Arch v 1.2.0 - Archive Viewer")
+        self.setWindowTitle(f"Ayo Arch v {self.APP_VERSION} - Archive Viewer")
         self.setMinimumSize(1000, 700)
+        
+        # Konfiguracja ustawień (trwała pamięć)
+        self.settings = QSettings("AyoArch", "Config")
         
         # Włączenie obsługi przeciągania plików
         self.setAcceptDrops(True)
@@ -41,8 +53,9 @@ class AyoArch(QMainWindow):
         if QApplication.instance():
             QApplication.instance().installTranslator(self.qt_translator)
 
-        # Domyślny język
-        self.load_language("pl")
+        # Domyślny język (z ustawień)
+        saved_lang = self.settings.value("language", "pl")
+        self.load_language(saved_lang)
 
         # Główny kontener
         central_widget = QWidget()
@@ -56,24 +69,24 @@ class AyoArch(QMainWindow):
         self.setup_sidebar(main_layout)
         self.setup_content(main_layout)
 
-        # Domyślny motyw (startujemy z Ciemnym, ale w ustawieniach Systemowy jest pierwszy)
-        self.apply_theme("dark")
+        # Domyślny motyw (startujemy z zapisanym lub Ciemnym)
+        saved_theme = self.settings.value("theme", "dark")
+        self.apply_theme(saved_theme)
 
         # Aplikuj teksty po utworzeniu UI
         self.update_texts()
 
     def load_language(self, lang_code):
+        self.current_lang = lang_code
+        self.settings.setValue("language", lang_code)
+        self.strings = {}
         try:
-            mod = importlib.import_module(f"i18n.{lang_code}")
-            self.strings = mod.STRINGS
-        except ImportError:
-            # Jeśli folder i18n nie istnieje lub import się nie udał, spróbuj z głównego katalogu
-            try:
-                mod = importlib.import_module(lang_code)
-                self.strings = mod.STRINGS
-            except ImportError:
-                print(f"Nie znaleziono pliku językowego dla: {lang_code}")
-                self.strings = {}
+            i18n_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "i18n", f"{lang_code}.json")
+            if os.path.exists(i18n_path):
+                with open(i18n_path, "r", encoding="utf-8") as f:
+                    self.strings = json.load(f)
+        except Exception as e:
+            print(f"Błąd ładowania języka {lang_code}: {e}")
         
         # Odśwież teksty jeśli UI już istnieje
         if hasattr(self, 'btn_open'):
@@ -98,6 +111,11 @@ class AyoArch(QMainWindow):
         self.btn_open.setObjectName("runButton")
         
         sidebar_layout.addWidget(self.btn_open)
+
+        self.btn_create = QPushButton("Utwórz archiwum")
+        self.btn_create.clicked.connect(self.open_create_dialog)
+        self.btn_create.setObjectName("runButton")
+        sidebar_layout.addWidget(self.btn_create)
 
         # Etykieta z nazwą archiwum (domyślnie ukryta)
         self.archive_name_label = QLabel()
@@ -126,17 +144,27 @@ class AyoArch(QMainWindow):
         sidebar_layout.addWidget(self.btn_close)
 
         # Kontener dla sidebara (aby ustalić stałą szerokość)
-        sidebar_container = QWidget()
-        sidebar_container.setObjectName("Sidebar")
-        sidebar_container.setAttribute(Qt.WA_StyledBackground, True) # Wymuszenie rysowania tła z CSS
+        sidebar_container = QFrame()
+        sidebar_container.setObjectName("leftPanel")
         sidebar_container.setLayout(sidebar_layout)
         sidebar_container.setFixedWidth(200)
+        
+        # Cień pod panelem
+        shadow = QGraphicsDropShadowEffect()
+        shadow.setBlurRadius(30)
+        shadow.setOffset(0, 6)
+        shadow.setColor(QColor(0, 0, 0, 60))
+        sidebar_container.setGraphicsEffect(shadow)
         
         layout.addWidget(sidebar_container)
 
     def setup_content(self, layout):
         # --- CENTRUM (PODGLĄD + LOGO) ---
-        content_layout = QHBoxLayout()
+        content_container = QFrame()
+        content_container.setObjectName("rightPanel")
+        
+        content_layout = QHBoxLayout(content_container)
+        content_layout.setContentsMargins(10, 10, 10, 10)
         content_layout.setSpacing(10)
 
         # Obszar podglądu
@@ -148,10 +176,33 @@ class AyoArch(QMainWindow):
         content_layout.addWidget(self.image_label)
 
         self.logo_label = QLabel()
+        
+        # Stylizacja logo (ramka i tło)
+        self.logo_label.setStyleSheet("""
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 10px;
+            background-color: rgba(255, 255, 255, 0.05);
+        """)
+        
+        # Cień dla logo
+        logo_shadow = QGraphicsDropShadowEffect()
+        logo_shadow.setBlurRadius(20)
+        logo_shadow.setOffset(0, 5)
+        logo_shadow.setColor(QColor(0, 0, 0, 70))
+        self.logo_label.setGraphicsEffect(logo_shadow)
+
         self.load_logo()
         content_layout.addWidget(self.logo_label, 0, Qt.AlignBottom)
 
-        layout.addLayout(content_layout)
+        # Cień pod panelem
+        shadow = QGraphicsDropShadowEffect()
+        shadow.setBlurRadius(30)
+        shadow.setOffset(0, 6)
+        shadow.setColor(QColor(0, 0, 0, 60))
+        content_container.setGraphicsEffect(shadow)
+
+        layout.addWidget(content_container)
 
     def load_logo(self):
         # Szukanie logo
@@ -185,10 +236,10 @@ class AyoArch(QMainWindow):
         if files:
             # Bierzemy pierwszy plik z rzutu
             file_path = files[0]
-            if file_path.lower().endswith(('.zip', '.cbz', '.7z')):
+            if file_path.lower().endswith(('.zip', '.cbz', '.7z', '.rar', '.cbr')):
                 self.display_first_image(file_path)
             else:
-                self.image_label.setText("To nie jest plik .zip!")
+                self.image_label.setText(self.strings.get("not_zip_error", "To nie jest obsługiwane archiwum!"))
 
     # --- Obsługa zmiany rozmiaru okna ---
     def resizeEvent(self, event):
@@ -199,7 +250,12 @@ class AyoArch(QMainWindow):
 
     def update_texts(self):
         s = self.strings
+        title = s.get("app_title", f"Ayo Arch v {self.APP_VERSION} - Archive Viewer")
+        # Wymuś spójną wersję w tytule niezależnie od pliku językowego.
+        title = re.sub(r"v\s*\d+\.\d+\.\d+", f"v {self.APP_VERSION}", title)
+        self.setWindowTitle(title)
         self.btn_open.setText(s.get("open_archive", "Otwórz"))
+        self.btn_create.setText(s.get("create_archive", "Utwórz archiwum"))
         self.btn_settings.setText(s.get("settings", "Ustawienia"))
         self.btn_close.setText(s.get("close", "Zamknij"))
         if not self.current_pixmap:
@@ -211,12 +267,37 @@ class AyoArch(QMainWindow):
             self.settings_window = SettingsWindow(self)
             self.settings_window.language_changed.connect(self.load_language)
             self.settings_window.theme_changed.connect(self.apply_theme)
-            self.settings_window.update_texts(self.strings)
-            # Ustawienie domyślnego wyboru w combo (Ciemny to index 1)
-            self.settings_window.combo_theme.setCurrentIndex(1)
+        
+        self.settings_window.update_texts(self.strings)
+        
+        # Ustawienie aktualnego języka w combo
+        current_lang = getattr(self, 'current_lang', 'pl')
+        lang_index = self.settings_window.combo_lang.findData(current_lang)
+        if lang_index >= 0:
+            self.settings_window.combo_lang.blockSignals(True)
+            self.settings_window.combo_lang.setCurrentIndex(lang_index)
+            self.settings_window.combo_lang.blockSignals(False)
+        
+        # Ustawienie aktualnego motywu w combo
+        current_theme = getattr(self, 'current_theme', 'dark')
+        theme_index = self.settings_window.combo_theme.findData(current_theme)
+        if theme_index >= 0:
+            self.settings_window.combo_theme.setCurrentIndex(theme_index)
+            
         self.settings_window.show()
 
+    def open_create_dialog(self):
+        dialog = CreateArchiveDialog(self, self.strings)
+        # Przekazanie stylu z głównego okna
+        dialog.setStyleSheet(self.styleSheet())
+        # Przekazanie stylu drop zone (zależnego od motywu)
+        dialog.set_drop_zone_style(self.image_label.styleSheet())
+        dialog.exec()
+
     def apply_theme(self, theme_code):
+        self.current_theme = theme_code
+        self.settings.setValue("theme", theme_code)
+        
         if theme_code == "system":
             self.setStyleSheet(SYSTEM_THEME)
             self.image_label.setStyleSheet(DROP_ZONE_STYLE_SYSTEM)
@@ -246,15 +327,54 @@ class AyoArch(QMainWindow):
     # --- Logika aplikacji ---
     def load_zip_dialog(self):
         dialog = QFileDialog(self, self.strings.get("open_archive", "Wybierz archiwum"), "")
-        dialog.setNameFilter("Archives (*.zip *.cbz *.7z)")
+        dialog.setNameFilter("Archives (*.zip *.cbz *.7z *.rar *.cbr)")
         dialog.setFileMode(QFileDialog.ExistingFile)
         dialog.setOption(QFileDialog.DontUseNativeDialog, True)
         dialog.setStyleSheet(self.styleSheet())
+        self.localize_file_dialog(dialog)
+        dialog.directoryEntered.connect(lambda _: self.localize_file_dialog(dialog))
+        QTimer.singleShot(0, lambda: self.localize_file_dialog(dialog))
         
         if dialog.exec():
             selected = dialog.selectedFiles()
             if selected:
                 self.display_first_image(selected[0])
+
+    def localize_file_dialog(self, dialog):
+        s = self.strings
+        labels = {
+            "Look in:": s.get("fd_look_in", "Look in:"),
+            "File name:": s.get("fd_file_name", "File name:"),
+            "Files of type:": s.get("fd_files_of_type", "Files of type:"),
+            "Open": s.get("fd_open", s.get("open_archive", "Open")),
+            "Cancel": s.get("fd_cancel", s.get("cancel", "Cancel")),
+            "Computer": s.get("fd_computer", "Computer"),
+            "Name": s.get("fd_name", "Name"),
+            "Size": s.get("fd_size", "Size"),
+            "Type": s.get("fd_type", "Type"),
+            "Date Modified": s.get("fd_date_modified", "Date Modified")
+        }
+
+        for widget in dialog.findChildren(QWidget):
+            text_getter = getattr(widget, "text", None)
+            text_setter = getattr(widget, "setText", None)
+            if callable(text_getter) and callable(text_setter):
+                try:
+                    source = text_getter()
+                except TypeError:
+                    continue
+                target = labels.get(source)
+                if target:
+                    text_setter(target)
+
+        for view in dialog.findChildren(QTreeView) + dialog.findChildren(QTableView):
+            model = view.model()
+            if not model:
+                continue
+            model.setHeaderData(0, Qt.Horizontal, labels["Name"])
+            model.setHeaderData(1, Qt.Horizontal, labels["Size"])
+            model.setHeaderData(2, Qt.Horizontal, labels["Type"])
+            model.setHeaderData(3, Qt.Horizontal, labels["Date Modified"])
 
     def display_first_image(self, zip_path):
         self.current_zip_path = zip_path
@@ -294,6 +414,36 @@ class AyoArch(QMainWindow):
 
                 with py7zr.SevenZipFile(zip_path, mode='r') as z:
                     file_list = z.getnames()
+            elif zip_path.lower().endswith(('.rar', '.cbr')):
+                global rarfile
+                if rarfile is None:
+                    reply = QMessageBox.question(
+                        self, 
+                        self.strings.get("dep_install_title", "Wymagany dodatek"), 
+                        self.strings.get("dep_install_question_rar", "Obsługa plików .rar wymaga biblioteki 'rarfile'.\nCzy chcesz, aby program pobrał i zainstalował ją teraz automatycznie?"),
+                        QMessageBox.Yes | QMessageBox.No
+                    )
+                    
+                    if reply == QMessageBox.Yes:
+                        self.image_label.setText(self.strings.get("dep_installing_rar", "Instalowanie biblioteki rarfile... Proszę czekać."))
+                        QApplication.setOverrideCursor(Qt.WaitCursor)
+                        QApplication.processEvents()
+                        try:
+                            subprocess.check_call([sys.executable, "-m", "pip", "install", "rarfile"])
+                            import rarfile as lib
+                            rarfile = lib
+                        except Exception as e:
+                            self.image_label.setText(f"{self.strings.get('dep_install_error', 'Błąd instalacji: ')}{e}")
+                            QApplication.restoreOverrideCursor()
+                            return
+                        finally:
+                            QApplication.restoreOverrideCursor()
+                    else:
+                        self.image_label.setText(self.strings.get("dep_install_cancel_rar", "Anulowano. Biblioteka rarfile jest wymagana dla plików .rar."))
+                        return
+
+                with rarfile.RarFile(zip_path, mode='r') as z:
+                    file_list = z.namelist()
             else:
                 with zipfile.ZipFile(zip_path, 'r') as z:
                     file_list = z.namelist()
@@ -310,7 +460,7 @@ class AyoArch(QMainWindow):
                 # Sortujemy, aby mieć pewność kolejności (np. page_01, page_02)
                 images.sort()
                 self.load_image_from_zip(images[0])
-                self.setWindowTitle(f"Ayo Arch - {zip_path}")
+                self.setWindowTitle(f"Ayo Arch v {self.APP_VERSION} - {zip_path}")
             else:
                 self.image_label.setText(self.strings.get("no_images_error", "Brak obrazów!"))
                 self.current_pixmap = None
@@ -375,6 +525,11 @@ class AyoArch(QMainWindow):
                     with py7zr.SevenZipFile(self.current_zip_path, mode='r') as z:
                         data_map = z.read(targets=[filename])
                         data = data_map[filename].read()
+            elif self.current_zip_path.lower().endswith(('.rar', '.cbr')):
+                if rarfile:
+                    with rarfile.RarFile(self.current_zip_path, mode='r') as z:
+                        with z.open(filename) as f:
+                            data = f.read()
             else:
                 with zipfile.ZipFile(self.current_zip_path, 'r') as z:
                     with z.open(filename) as f:
@@ -386,3 +541,146 @@ class AyoArch(QMainWindow):
                 self.update_image_display()
         except Exception as e:
             self.image_label.setText(f"{self.strings.get('error_prefix', 'Błąd: ')}{str(e)}")
+
+class CreateArchiveDialog(QDialog):
+    def __init__(self, parent=None, strings=None):
+        super().__init__(parent)
+        self.strings = strings or {}
+        self.setWindowTitle(self.strings.get("create_archive_title", "Kreator Archiwum"))
+        self.setMinimumSize(500, 400)
+        self.setAcceptDrops(True)
+        self.files_to_archive = []
+
+        layout = QVBoxLayout(self)
+
+        # Drop Zone
+        self.drop_label = QLabel(self.strings.get("drop_images_create", "Przeciągnij obrazy do stworzenia archiwum"))
+        self.drop_label.setAlignment(Qt.AlignCenter)
+        self.drop_label.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        layout.addWidget(self.drop_label)
+
+        # Lista plików
+        self.file_list_widget = QListWidget()
+        self.file_list_widget.setViewMode(QListWidget.IconMode)
+        self.file_list_widget.setIconSize(QSize(100, 100))
+        self.file_list_widget.setResizeMode(QListWidget.Adjust)
+        self.file_list_widget.setSpacing(10)
+        self.file_list_widget.setSelectionMode(QAbstractItemView.NoSelection)
+        self.file_list_widget.setVisible(False)
+        layout.addWidget(self.file_list_widget)
+
+        # Przyciski
+        btn_layout = QHBoxLayout()
+        self.btn_create = QPushButton(self.strings.get("create_confirm", "Utwórz ZIP"))
+        self.btn_create.setObjectName("runButton")
+        self.btn_create.clicked.connect(self.create_archive)
+        self.btn_create.setEnabled(False)
+        
+        self.btn_cancel = QPushButton(self.strings.get("cancel", "Anuluj"))
+        self.btn_cancel.clicked.connect(self.reject)
+
+        btn_layout.addStretch()
+        btn_layout.addWidget(self.btn_create)
+        btn_layout.addWidget(self.btn_cancel)
+        layout.addLayout(btn_layout)
+
+    def set_drop_zone_style(self, style):
+        self.drop_label.setStyleSheet(style)
+        self.file_list_widget.setStyleSheet(style.replace("QLabel", "QListWidget"))
+
+    def dragEnterEvent(self, event: QDragEnterEvent):
+        if event.mimeData().hasUrls():
+            event.accept()
+        else:
+            event.ignore()
+
+    def dropEvent(self, event: QDropEvent):
+        files = [u.toLocalFile() for u in event.mimeData().urls()]
+        valid_files = [f for f in files if os.path.isfile(f)]
+        
+        if valid_files:
+            self.files_to_archive.extend(valid_files)
+            self.update_file_list()
+
+    def update_file_list(self):
+        self.file_list_widget.clear()
+        for f in self.files_to_archive:
+            item = QListWidgetItem()
+            item.setToolTip(os.path.basename(f))
+            
+            pixmap = QPixmap(f)
+            if not pixmap.isNull():
+                scaled = pixmap.scaled(100, 100, Qt.KeepAspectRatio, Qt.SmoothTransformation)
+                item.setIcon(QIcon(scaled))
+            
+            self.file_list_widget.addItem(item)
+        
+        count = len(self.files_to_archive)
+        self.drop_label.setText(f"{self.strings.get('files_count', 'Plików: ')} {count}")
+        self.file_list_widget.setVisible(True)
+        self.drop_label.setSizePolicy(QSizePolicy.Preferred, QSizePolicy.Preferred)
+        self.btn_create.setEnabled(count > 0)
+
+    def create_archive(self):
+        if not self.files_to_archive:
+            return
+
+        dialog = QFileDialog(self, self.strings.get("save", "Zapisz"), "")
+        dialog.setAcceptMode(QFileDialog.AcceptSave)
+        dialog.setFileMode(QFileDialog.AnyFile)
+        dialog.setNameFilter("ZIP Archive (*.zip)")
+        dialog.setDefaultSuffix("zip")
+        dialog.selectFile("archive.zip")
+        dialog.setOption(QFileDialog.DontUseNativeDialog, True)
+        dialog.setStyleSheet(self.styleSheet())
+        dialog.setLabelText(QFileDialog.Accept, self.strings.get("save", "Zapisz"))
+        
+        if self.parent() and hasattr(self.parent(), 'localize_file_dialog'):
+            self.parent().localize_file_dialog(dialog)
+            dialog.directoryEntered.connect(lambda _: self.parent().localize_file_dialog(dialog))
+            QTimer.singleShot(0, lambda: self.parent().localize_file_dialog(dialog))
+
+        if dialog.exec():
+            selected = dialog.selectedFiles()
+            if selected:
+                save_path = os.path.abspath(os.path.expanduser(selected[0]))
+                if os.path.isdir(save_path):
+                    QMessageBox.warning(
+                        self,
+                        self.strings.get("error_prefix", "Błąd"),
+                        self.strings.get("save_path_is_dir", "Wskaż nazwę pliku, a nie folder.")
+                    )
+                    return
+
+                if not save_path.lower().endswith(".zip"):
+                    save_path += ".zip"
+
+                try:
+                    added_files = 0
+                    with zipfile.ZipFile(save_path, "w", compression=zipfile.ZIP_DEFLATED) as zipf:
+                        for file in self.files_to_archive:
+                            if os.path.isfile(file):
+                                zipf.write(file, os.path.basename(file))
+                                added_files += 1
+
+                    if added_files == 0:
+                        QMessageBox.warning(
+                            self,
+                            self.strings.get("error_prefix", "Błąd"),
+                            self.strings.get("no_files_to_archive", "Brak plików do spakowania.")
+                        )
+                        return
+                except Exception as e:
+                    QMessageBox.critical(
+                        self,
+                        self.strings.get("error_prefix", "Błąd"),
+                        f"{self.strings.get('archive_create_error', 'Nie udało się utworzyć archiwum: ')}{e}"
+                    )
+                    return
+
+                QMessageBox.information(
+                    self,
+                    self.strings.get("save", "Zapisz"),
+                    f"{self.strings.get('archive_created', 'Archiwum utworzone:')} {save_path}"
+                )
+                self.accept()

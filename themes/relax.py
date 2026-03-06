@@ -1,33 +1,34 @@
 RELAX_THEME = """
 /* =========================
-   MOTYW RELAKSACYJNY
+   MOTYW RELAKSACYJNY (NATURE)
    ========================= */
 
 QMainWindow {
-    background-color: #a3b18a;
+    background-color: #B7C7A3;
 }
 
 QDialog {
-    background-color: #a3b18a;
+    background-color: #B7C7A3;
+    color: #2F3E36;
 }
 
 /* =========================
    RAMKI / PANELE
    ========================= */
 QFrame {
-    background-color: #dad7cd;
-    border: 1px solid #588157;
+    background-color: #E7E3D8;
+    border: 1px solid #7FA37B;
 }
 
 /* =========================
    TEKST
    ========================= */
 QLabel {
-    color: #344e41;
+    color: #2F3E36;
 }
 
 QLabel[secondary="true"] {
-    color: #588157;
+    color: #6B7F72;
 }
 
 /* =========================
@@ -35,41 +36,41 @@ QLabel[secondary="true"] {
    ========================= */
 QPushButton {
     padding: 8px 14px;
-    background-color: #dad7cd;
-    border: 1px solid #588157;
+    background-color: #E7E3D8;
+    border: 1px solid #7FA37B;
     border-radius: 6px;
-    color: #344e41;
+    color: #2F3E36;
 }
 
 QPushButton:hover {
-    background-color: #e8e6df; /* Rozjaśniony #dad7cd */
+    background-color: #F2EFE7;
 }
 
 QPushButton:pressed {
-    background-color: #c4c1b7; /* Przyciemniony #dad7cd */
+    background-color: #D7D3C8;
 }
 
 QPushButton:disabled {
-    background-color: #b5bca5;
-    color: #7a8c7f;
-    border-color: #8fa38e;
+    background-color: #C9D2BE;
+    color: #6B7F72;
+    border: 1px solid #7FA37B;
 }
 
 /* =========================
    PRZYCISK WYKONAJ (AKCENT)
    ========================= */
 QPushButton#runButton {
-    background-color: #588157;
+    background-color: #6A9C6B;
     border: none;
-    color: #dad7cd;
+    color: #FFFFFF;
 }
 
 QPushButton#runButton:hover {
-    background-color: #6a9669;
+    background-color: #8FBF8F;
 }
 
 QPushButton#runButton:pressed {
-    background-color: #466845;
+    background-color: #4F7A52;
 }
 
 /* =========================
@@ -77,24 +78,24 @@ QPushButton#runButton:pressed {
    ========================= */
 QSlider::groove:horizontal {
     height: 6px;
-    background: #dad7cd;
+    background: #E7E3D8;
     border-radius: 3px;
 }
 
 QSlider::handle:horizontal {
-    background: #588157;
+    background: #6A9C6B;
     width: 16px;
     margin: -5px 0;
     border-radius: 8px;
 }
 
 QSlider::sub-page:horizontal {
-    background: #344e41;
+    background: #4F7A52;
     border-radius: 3px;
 }
 
 QSlider::add-page:horizontal {
-    background: #dad7cd;
+    background: #E7E3D8;
     border-radius: 3px;
 }
 
@@ -102,9 +103,9 @@ QSlider::add-page:horizontal {
    KONTROLKI FORMULARZY
    ========================= */
 QComboBox {
-    background-color: #dad7cd;
-    color: #344e41;
-    border: 1px solid #588157;
+    background-color: #F0EDE5; /* Karta robocza */
+    color: #2F3E36;
+    border: 1px solid #7FA37B;
     padding: 4px;
 }
 
@@ -112,19 +113,58 @@ QComboBox::drop-down {
     border: none;
 }
 
-QListView {
-    background-color: #dad7cd;
-    color: #344e41;
-    border: 1px solid #588157;
+QListView, QTreeView {
+    background-color: #F0EDE5;
+    color: #2F3E36;
+    border: 1px solid #7FA37B;
+    outline: none;
+}
+
+QTreeView::item:selected, QListView::item:selected {
+    background-color: #6A9C6B;
+    color: #FFFFFF;
+}
+
+QHeaderView::section {
+    background-color: #E7E3D8;
+    color: #2F3E36;
+    border: none;
+    padding: 4px;
+}
+
+QLineEdit {
+    background-color: #F0EDE5;
+    color: #2F3E36;
+    border: 1px solid #7FA37B;
+    border-radius: 4px;
+}
+
+/* =========================
+   NARZĘDZIA
+   ========================= */
+QToolButton {
+    background-color: transparent;
+    border: none;
+    border-radius: 4px;
+    color: #2F3E36;
+    padding: 4px;
+}
+
+QToolButton:hover {
+    background-color: #E7E3D8;
+}
+
+QToolButton:pressed {
+    background-color: #D7D3C8;
 }
 """
 
 DROP_ZONE = """
     QLabel {
-        border: 2px dashed #588157;
-        border-radius: 8px;
-        color: #344e41;
-        font-size: 16px;
-        background-color: #dad7cd;
+        background: qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 rgba(106, 156, 107, 0.25), stop:1 rgba(106, 156, 107, 0.05));
+        border: 2px dashed #6A9C6B;
+        border-radius: 10px;
+        color: #6A9C6B;
+        font-size: 18px;
     }
 """
