@@ -12,13 +12,17 @@ Part of the Ayo Ecosystem.
 
 | Dark | Light | Creative | Relax | System |
 |---|---|---|---|---|
-| [![Dark](screenshots/main_dark.png)](screenshots/main_dark.png) | *(screenshot not available yet)* | [![Creative](screenshots/main_creative.png)](screenshots/main_creative.png) | [![Relax](screenshots/main_relax.png)](screenshots/main_relax.png) | *(screenshot not available yet)* |
+| [![Dark](screenshots/main_view_dark.png)](screenshots/main_view_dark.png) | [![Light](screenshots/main_view_light.png)](screenshots/main_view_light.png) | [![Creative](screenshots/main_view_creative.png)](screenshots/main_view_creative.png) | [![Relax](screenshots/main_view_relax.png)](screenshots/main_view_relax.png) | [![System](screenshots/main_view_system.png)](screenshots/main_view_system.png) |
+
+| Create ZIP |
+|---|
+| [![Create ZIP](screenshots/creativ_zip.png)](screenshots/creativ_zip.png) |
 
 ### Functional Views
 
-| Theme Selection | Language Selection |
-|---|---|
-| [![Theme Selection](screenshots/settings.png)](screenshots/settings.png) | [![Language Selection](screenshots/settings.png)](screenshots/settings.png) |
+| Language Selection |
+|---|
+| [![Language Selection](screenshots/language_selection_menu.png)](screenshots/language_selection_menu.png) |
 
 ## 🆕 What’s New in 1.5.0
 
