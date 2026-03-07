@@ -4,11 +4,11 @@ RELAX_THEME = """
    ========================= */
 
 QMainWindow {
-    background-color: #B7C7A3;
+    background-color: #C0D3AC;
 }
 
 QDialog {
-    background-color: #B7C7A3;
+    background-color: #C0D3AC;
     color: #2F3E36;
 }
 
@@ -17,7 +17,7 @@ QDialog {
    ========================= */
 QFrame {
     background-color: #E7E3D8;
-    border: 1px solid #7FA37B;
+    border: 1px solid #88B283;
 }
 
 /* =========================
@@ -37,7 +37,7 @@ QLabel[secondary="true"] {
 QPushButton {
     padding: 8px 14px;
     background-color: #E7E3D8;
-    border: 1px solid #7FA37B;
+    border: 1px solid #88B283;
     border-radius: 6px;
     color: #2F3E36;
 }
@@ -53,24 +53,24 @@ QPushButton:pressed {
 QPushButton:disabled {
     background-color: #C9D2BE;
     color: #6B7F72;
-    border: 1px solid #7FA37B;
+    border: 1px solid #88B283;
 }
 
 /* =========================
    PRZYCISK WYKONAJ (AKCENT)
    ========================= */
 QPushButton#runButton {
-    background-color: #6A9C6B;
+    background-color: #73AE74;
     border: none;
     color: #FFFFFF;
 }
 
 QPushButton#runButton:hover {
-    background-color: #8FBF8F;
+    background-color: #98C998;
 }
 
 QPushButton#runButton:pressed {
-    background-color: #4F7A52;
+    background-color: #5B8A5E;
 }
 
 /* =========================
@@ -83,14 +83,14 @@ QSlider::groove:horizontal {
 }
 
 QSlider::handle:horizontal {
-    background: #6A9C6B;
+    background: #73AE74;
     width: 16px;
     margin: -5px 0;
     border-radius: 8px;
 }
 
 QSlider::sub-page:horizontal {
-    background: #4F7A52;
+    background: #5B8A5E;
     border-radius: 3px;
 }
 
@@ -105,7 +105,7 @@ QSlider::add-page:horizontal {
 QComboBox {
     background-color: #F0EDE5; /* Karta robocza */
     color: #2F3E36;
-    border: 1px solid #7FA37B;
+    border: 1px solid #88B283;
     padding: 4px;
 }
 
@@ -116,12 +116,12 @@ QComboBox::drop-down {
 QListView, QTreeView {
     background-color: #F0EDE5;
     color: #2F3E36;
-    border: 1px solid #7FA37B;
+    border: 1px solid #88B283;
     outline: none;
 }
 
 QTreeView::item:selected, QListView::item:selected {
-    background-color: #6A9C6B;
+    background-color: #73AE74;
     color: #FFFFFF;
 }
 
@@ -135,7 +135,7 @@ QHeaderView::section {
 QLineEdit {
     background-color: #F0EDE5;
     color: #2F3E36;
-    border: 1px solid #7FA37B;
+    border: 1px solid #88B283;
     border-radius: 4px;
 }
 
@@ -161,10 +161,10 @@ QToolButton:pressed {
 
 DROP_ZONE = """
     QLabel {
-        background: qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 rgba(106, 156, 107, 0.25), stop:1 rgba(106, 156, 107, 0.05));
-        border: 2px dashed #6A9C6B;
+        background: qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 rgba(115, 174, 116, 0.25), stop:1 rgba(115, 174, 116, 0.05));
+        border: 2px dashed #73AE74;
         border-radius: 10px;
-        color: #6A9C6B;
+        color: #73AE74;
         font-size: 18px;
     }
 """

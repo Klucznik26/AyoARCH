@@ -10,7 +10,7 @@ class AyoArch(QMainWindow):
     def __init__(self):
         super().__init__()
         # Nazwa projektu zgodna z Twoim pomysłem
-        self.setWindowTitle("Ayo Arch v0.0.1 - Archive Viewer")
+        self.setWindowTitle("Ayo Archi v1.5.5 - Archive Viewer")
         self.setMinimumSize(800, 600)
 
         # Interfejs

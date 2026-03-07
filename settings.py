@@ -66,6 +66,7 @@ class SettingsWindow(QDialog):
             ("dark", "Dark"),
             ("light", "Light"),
             ("relax", "Relax"),
+            ("arctic", "Arctic"),
             ("creative", "Creative")
         ]
 
@@ -101,6 +102,7 @@ class SettingsWindow(QDialog):
             "dark": strings.get("theme_dark", "Dark"),
             "light": strings.get("theme_light", "Light"),
             "relax": strings.get("theme_relax", "Relax"),
+            "arctic": strings.get("theme_arctic", "Arctic"),
             "creative": strings.get("theme_creative", "Creative"),
         }
         for index in range(self.combo_theme.count()):

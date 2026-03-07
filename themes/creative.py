@@ -4,11 +4,11 @@ CREATIVE_THEME = """
    ========================= */
 
 QMainWindow {
-    background-color: #14161C;
+    background-color: #4A1E2D;
 }
 
 QDialog {
-    background-color: #14161C;
+    background-color: #4A1E2D;
     color: #E6E8FF;
 }
 

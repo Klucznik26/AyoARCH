@@ -14,7 +14,7 @@ def create_i18n():
         
     # Tworzenie pliku pl.py
     pl_content = """STRINGS = {
-    "app_title": "Ayo Arch v1.2.0 - Archive Viewer",
+    "app_title": "Ayo Archi v1.5.5 - Archive Viewer",
     "open_archive": "Otwórz archiwum",
     "create_archive": "Utwórz archiwum",
     "save_dir": "Katalog zapisu",
@@ -52,7 +52,7 @@ def create_i18n():
 
     # Tworzenie pliku lt.py
     lt_content = """STRINGS = {
-    "app_title": "Ayo Arch v1.2.0 - Archyvų peržiūra",
+    "app_title": "Ayo Archi v1.5.5 - Archyvų peržiūra",
     "open_archive": "Atidaryti archyvą",
     "create_archive": "Sukurti archyvą",
     "save_dir": "Pasirinkti išsaugojimo aplanką",
@@ -90,7 +90,7 @@ def create_i18n():
 
     # Tworzenie pliku en.py
     en_content = """STRINGS = {
-    "app_title": "Ayo Arch v1.2.0 - Archive Viewer",
+    "app_title": "Ayo Archi v1.5.5 - Archive Viewer",
     "open_archive": "Open Archive",
     "create_archive": "Create Archive",
     "save_dir": "Save Directory",
@@ -128,7 +128,7 @@ def create_i18n():
 
     # Tworzenie pliku es.py (Hiszpański)
     es_content = """STRINGS = {
-    "app_title": "Ayo Arch v1.2.0 - Visor de Archivos",
+    "app_title": "Ayo Archi v1.5.5 - Visor de Archivos",
     "open_archive": "Abrir archivo",
     "create_archive": "Crear archivo",
     "save_dir": "Directorio de guardado",
@@ -166,7 +166,7 @@ def create_i18n():
 
     # Tworzenie pliku fr.py (Francuski)
     fr_content = """STRINGS = {
-    "app_title": "Ayo Arch v1.2.0 - Visionneuse d'archives",
+    "app_title": "Ayo Archi v1.5.5 - Visionneuse d'archives",
     "open_archive": "Ouvrir l'archive",
     "create_archive": "Créer une archive",
     "save_dir": "Répertoire de sauvegarde",
@@ -204,7 +204,7 @@ def create_i18n():
 
     # Tworzenie pliku it.py (Włoski)
     it_content = """STRINGS = {
-    "app_title": "Ayo Arch v1.2.0 - Visualizzatore di archivi",
+    "app_title": "Ayo Archi v1.5.5 - Visualizzatore di archivi",
     "open_archive": "Apri archivio",
     "create_archive": "Crea archivio",
     "save_dir": "Cartella di salvataggio",
@@ -242,7 +242,7 @@ def create_i18n():
 
     # Tworzenie pliku ro.py (Rumuński)
     ro_content = """STRINGS = {
-    "app_title": "Ayo Arch v1.2.0 - Vizualizator de arhive",
+    "app_title": "Ayo Archi v1.5.5 - Vizualizator de arhive",
     "open_archive": "Deschide arhiva",
     "create_archive": "Creează arhivă",
     "save_dir": "Director de salvare",
@@ -280,7 +280,7 @@ def create_i18n():
 
     # Tworzenie pliku sk.py (Słowacki)
     sk_content = """STRINGS = {
-    "app_title": "Ayo Arch v1.2.0 - Prehliadač archívov",
+    "app_title": "Ayo Archi v1.5.5 - Prehliadač archívov",
     "open_archive": "Otvoriť archív",
     "create_archive": "Vytvoriť archív",
     "save_dir": "Adresár pre uloženie",
@@ -318,7 +318,7 @@ def create_i18n():
 
     # Tworzenie pliku el.py (Grecki)
     el_content = """STRINGS = {
-    "app_title": "Ayo Arch v1.2.0 - Προβολή Αρχείων",
+    "app_title": "Ayo Archi v1.5.5 - Προβολή Αρχείων",
     "open_archive": "Άνοιγμα αρχείου",
     "create_archive": "Δημιουργία αρχείου",
     "save_dir": "Κατάλογος αποθήκευσης",
@@ -356,7 +356,7 @@ def create_i18n():
 
     # Tworzenie pliku ka.py (Gruziński)
     ka_content = """STRINGS = {
-    "app_title": "Ayo Arch v1.2.0 - არქივის დამთვალიერებელი",
+    "app_title": "Ayo Archi v1.5.5 - არქივის დამთვალიერებელი",
     "open_archive": "არქივის გახსნა",
     "create_archive": "არქივის შექმნა",
     "save_dir": "შენახვის დირექტორია",
@@ -394,7 +394,7 @@ def create_i18n():
 
     # Tworzenie pliku pt.py (Portugalski)
     pt_content = """STRINGS = {
-    "app_title": "Ayo Arch v1.2.0 - Visualizador de Arquivos",
+    "app_title": "Ayo Archi v1.5.5 - Visualizador de Arquivos",
     "open_archive": "Abrir Arquivo",
     "create_archive": "Criar Arquivo",
     "save_dir": "Diretório de Salvamento",
@@ -432,7 +432,7 @@ def create_i18n():
 
     # Tworzenie pliku cs.py (Czeski)
     cs_content = """STRINGS = {
-    "app_title": "Ayo Arch v1.2.0 - Prohlížeč archivů",
+    "app_title": "Ayo Archi v1.5.5 - Prohlížeč archivů",
     "open_archive": "Otevřít archiv",
     "create_archive": "Vytvořit archiv",
     "save_dir": "Adresář pro uložení",
@@ -470,7 +470,7 @@ def create_i18n():
 
     # Tworzenie pliku uk.py (Ukraiński)
     uk_content = """STRINGS = {
-    "app_title": "Ayo Arch v1.2.0 - Переглядач архівів",
+    "app_title": "Ayo Archi v1.5.5 - Переглядач архівів",
     "open_archive": "Відкрити архів",
     "create_archive": "Створити архів",
     "save_dir": "Каталог збереження",
@@ -508,7 +508,7 @@ def create_i18n():
 
     # Tworzenie pliku lv.py (Łotewski)
     lv_content = """STRINGS = {
-    "app_title": "Ayo Arch v1.2.0 - Arhīvu skatītājs",
+    "app_title": "Ayo Archi v1.5.5 - Arhīvu skatītājs",
     "open_archive": "Atvērt arhīvu",
     "create_archive": "Izveidot arhīvu",
     "save_dir": "Saglabāšanas direktorija",
@@ -546,7 +546,7 @@ def create_i18n():
 
     # Tworzenie pliku et.py (Estoński)
     et_content = """STRINGS = {
-    "app_title": "Ayo Arch v1.2.0 - Arhiivivaatur",
+    "app_title": "Ayo Archi v1.5.5 - Arhiivivaatur",
     "open_archive": "Ava arhiiv",
     "create_archive": "Loo arhiiv",
     "save_dir": "Salvestamise kaust",
@@ -580,7 +580,7 @@ def create_i18n():
             "files_count": "Failid: "
         },
         "de": {
-            "app_title": "Ayo Arch v1.2.0 - Archivbetrachter",
+            "app_title": "Ayo Archi v1.5.5 - Archivbetrachter",
             "open_archive": "Archiv öffnen",
             "create_archive": "Archiv erstellen",
             "save_dir": "Speicherverzeichnis",
@@ -614,7 +614,7 @@ def create_i18n():
             "files_count": "Dateien: "
         },
         "ru": {
-            "app_title": "Ayo Arch v1.2.0 - Просмотр архивов",
+            "app_title": "Ayo Archi v1.5.5 - Просмотр архивов",
             "open_archive": "Открыть архив",
             "create_archive": "Создать архив",
             "save_dir": "Каталог сохранения",
